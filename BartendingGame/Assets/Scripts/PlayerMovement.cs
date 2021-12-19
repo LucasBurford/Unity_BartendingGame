@@ -17,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
         set { moveSpeed = value; }
     }
 
-    private Vector3 movement;
+    // Sprinting
+    [SerializeField]
+    private bool isSprinting;
 
     #endregion
 
@@ -34,6 +36,6 @@ public class PlayerMovement : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal");
         float zMove = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector3(xMove, rb.velocity.y, zMove);
+        rb.velocity = new Vector3(xMove, rb.velocity.y, zMove) * moveSpeed;
     }
 }
