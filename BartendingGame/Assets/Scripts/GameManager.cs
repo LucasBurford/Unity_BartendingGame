@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     // Reference to order text
     public TMP_Text orderText;
 
+    // Reference to timer slider
+    public Slider timerSlider;
+
     [Header("Gameplay and spec")]
     // Queue of orders
     public Queue<Order> orderQueue;
@@ -23,6 +26,8 @@ public class GameManager : MonoBehaviour
     List<string> drinksList;
 
     #endregion
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +54,18 @@ public class GameManager : MonoBehaviour
         order.orderName = drinksList[Random.Range(0, drinksList.Count)];
 
         DisplayOrder(order.orderName);
+
+        InvokeRepeating("StartTimer", 0, 1);
     }
 
     private void DisplayOrder(string order)
     {
         orderText.text = order;
+    }
+
+    private void StartTimer()
+    {
+        timerSlider.value -= 1;
     }
 
     public void RemoveOrder()
@@ -68,5 +80,7 @@ public class GameManager : MonoBehaviour
         drinksList.Add("Old Fasioned");
         drinksList.Add("Margarita");
         drinksList.Add("Passionfruit Martini");
+        drinksList.Add("Pint of lager");
+        drinksList.Add("Pint of cider");
     }
 }
