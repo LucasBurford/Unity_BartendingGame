@@ -3,6 +3,9 @@
 public class PlayerMovement : MonoBehaviour
 {
     #region Fields
+    [Header("References")]
+    public Rigidbody rb;
+
     [Header("Gameplay and spec")]
 
     // The move speed of the player
@@ -13,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
         get { return moveSpeed; }
         set { moveSpeed = value; }
     }
+
+    private Vector3 movement;
 
     #endregion
 
@@ -25,14 +30,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Gather horizontal inputs
-        float xDirection = Input.GetAxis("Horizontal");
-        float zDirection = Input.GetAxis("Vertical");
+        // Get input
+        float xMove = Input.GetAxisRaw("Horizontal");
+        float zMove = Input.GetAxisRaw("Vertical");
 
-        // Store them in a Vector3
-        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection);
-
-        // Apply Vector3 to position
-        transform.position += moveDirection * moveSpeed;
+        rb.velocity = new Vector3(xMove, rb.velocity.y, zMove);
     }
 }

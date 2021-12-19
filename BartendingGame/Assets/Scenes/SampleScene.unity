@@ -212,8 +212,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110595058}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.17804313, y: 3.6200645, z: -0.3655933}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1349656929}
@@ -284,7 +284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ae57fea693aa245a0e185208ef6c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
+  rb: {fileID: 516977417}
+  moveSpeed: 5
 --- !u!65 &516977416
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -312,8 +313,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 116
+  m_CollisionDetection: 1
 --- !u!23 &516977418
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -371,7 +372,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516977414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1544952, y: 1.48, z: -0.34}
+  m_LocalPosition: {x: 0, y: -3.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -545,13 +546,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.20945771, y: -0, z: -0, w: 0.9778177}
+  m_LocalRotation: {x: 0.47878125, y: -0, z: -0, w: 0.8779343}
   m_LocalPosition: {x: -1.69, y: 3.61, z: -3.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 24.181, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 57.212, y: 0, z: 0}
 --- !u!1 &997920925
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +564,7 @@ GameObject:
   - component: {fileID: 997920926}
   - component: {fileID: 997920929}
   - component: {fileID: 997920928}
+  - component: {fileID: 997920930}
   - component: {fileID: 997920927}
   m_Layer: 0
   m_Name: Bar_Front
@@ -579,7 +581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997920925}
   m_LocalRotation: {x: -0, y: 0.70133984, z: -0, w: 0.71282715}
-  m_LocalPosition: {x: -0.9419999, y: 3.9792, z: 0}
+  m_LocalPosition: {x: -1.121, y: 0.41, z: -0.002}
   m_LocalScale: {x: 0.5499999, y: 0.74165606, z: 7.7391095}
   m_Children: []
   m_Father: {fileID: 426907200}
@@ -647,6 +649,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997920925}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &997920930
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997920925}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &1349656928
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +708,7 @@ GameObject:
   - component: {fileID: 1577348010}
   - component: {fileID: 1577348013}
   - component: {fileID: 1577348012}
+  - component: {fileID: 1577348014}
   - component: {fileID: 1577348011}
   m_Layer: 0
   m_Name: Bar_RightSide
@@ -706,7 +725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577348009}
   m_LocalRotation: {x: -0.0014945877, y: 0.9998917, z: 0.000055345783, w: 0.014642602}
-  m_LocalPosition: {x: 3.27, y: 3.979, z: -1.754}
+  m_LocalPosition: {x: 3.091, y: 0.41, z: -1.756}
   m_LocalScale: {x: 0.55000037, y: 0.741656, z: 4.1935854}
   m_Children: []
   m_Father: {fileID: 426907200}
@@ -774,6 +793,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577348009}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1577348014
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577348009}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!850595691 &2069402426
 LightingSettings:
   m_ObjectHideFlags: 0
