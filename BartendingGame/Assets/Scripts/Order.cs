@@ -9,5 +9,5 @@ public class Order : MonoBehaviour
     public string orderName;
 
     // Image of the order
-    public Image orderImage;
+    public Sprite orderImage;
 }
