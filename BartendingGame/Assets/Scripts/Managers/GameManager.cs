@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     // Reference to create drink text
     public TMP_Text createDrinkText;
 
+    // Reference to drink complete text
+    public TMP_Text drinkCompleteText;
+
     // Reference to order image
     public Image orderImage;
 
@@ -33,6 +37,10 @@ public class GameManager : MonoBehaviour
 
     #region Gameplay and spec
     [Header("Gameplay and spec")]
+
+    // Drink completion rate
+    [SerializeField]
+    private float drinkCompletionRate;
 
     // Queue of orders
     public Queue<Order> orderQueue;
@@ -61,6 +69,14 @@ public class GameManager : MonoBehaviour
         lager,
         cider
     }
+
+    // Float to store drink completion
+    [SerializeField]
+    private float drinkCompletion;
+
+    // Bool to determine if player can pull a pint
+    [SerializeField]
+    private bool canPullPint;
     #endregion
 
     #endregion
@@ -80,7 +96,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void CreateOrder()
@@ -189,14 +205,80 @@ public class GameManager : MonoBehaviour
     public void DisplayPullDrinkText(string tapType)
     {
         createDrinkText.text = "Hold E to pull " + tapType;
+    }
 
-        if (Input.GetKey(KeyCode.E))
+    public void PullDrink()
+    {
+        if (Input.GetKey(KeyCode.E) && canPullPint)
         {
-            drinkCompletionSlider.value += 1f;
+            // Fill drinkCompletion
+            drinkCompletion += drinkCompletionRate;
+            // Keep drink completion slider updated to drink completion
+            drinkCompletionSlider.value += drinkCompletion / 10;
+
+            // If drinkComplettion reaches or exceeds 100
+            if (drinkCompletion >= 100)
+            {
+                // Stop player from further filling it
+                drinkCompletion = 100;
+                canPullPint = false;
+
+                // Wait to generate a new order
+                CompleteDrink();
+            }
+        }
+        else
+        {
+            print("Can't pull yet");
         }
     }
 
+    private void CompleteDrink()
+    {
+        drinkCompleteText.gameObject.SetActive(true);
+        drinkCompleteText.text = "Drink complete!";
+
+        player.AddScore(10);
+
+        StartCoroutine(WaitToGetNewOrder());
+    }
+
+    #region Coroutines
+
+    IEnumerator WaitToGetNewOrder()
+    {
+        yield return new WaitForSeconds(2);
+
+        drinkCompleteText.gameObject.SetActive(false);
+        drinkCompletion = 0;
+        drinkCompletionSlider.value = 0;
+        canPullPint = true;
+        CreateOrder();
+    }
+
+    #endregion
+
     #region Misc Methods
+    public void HandleCollision(string station)
+    {
+        // Check if player is at correct drink station
+        // If drink to be created is a lager and player is at lager tap
+        if (drinkToBeCreated == Drinks.lager && station == "Lager")
+        {
+            // Display pull Lager text
+            DisplayPullDrinkText("Lager");
+            PullDrink();
+        }
+        // If drink to be created is cider and player is at cider tap
+        else if (drinkToBeCreated == Drinks.cider && station == "Cider")
+        {
+            // Display pull cider text
+            DisplayPullDrinkText("Cider");
+            PullDrink();
+        }
+        // Carry on with cocktail stuff when ready
+    }
+
     private void StepTimer()
     {
         timerSlider.value -= 1;

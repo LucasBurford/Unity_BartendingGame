@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     #region Fields
     [Header("References")]
+
     public GameManager gameManager;
 
+    public TMP_Text scoreText;
+
     [Header("Gameplay and spec")]
+
     // Player name
     [SerializeField]
     private string playerName;
@@ -37,7 +42,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        scoreText.text = playerScore.ToString();
     }
 
     public void SetName(string name)
@@ -52,14 +57,16 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name == "LagerTap")
+        if (other.gameObject.tag  == "DrinkStation")
         {
-            gameManager.DisplayPullDrinkText("Lager");
-        }
-        
-        if (other.gameObject.name == "CiderTap")
-        {
-            gameManager.DisplayPullDrinkText("Cider");
+            if (other.gameObject.name == "LagerTap")
+            {
+                gameManager.HandleCollision("Lager");
+            }
+            else if (other.gameObject.name == "CiderTap")
+            {
+                gameManager.HandleCollision("Cider");
+            }
         }
     }
 
