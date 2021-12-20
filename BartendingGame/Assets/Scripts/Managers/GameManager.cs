@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
     // Reference to drink complete text
     public TMP_Text drinkCompleteText;
 
+    // Reference to ingredient collected text
+    public TMP_Text ingredientCollectedText;
+
+    // Reference to all ingredients collected text
+    public TMP_Text allCollectedText;
+    private bool hasDisplayed;
+
     // Reference to order image
     public Image orderImage;
 
@@ -48,6 +55,9 @@ public class GameManager : MonoBehaviour
     // List to hold drink types
     [SerializeField]
     List<string> drinksList;
+
+    // Hold current order
+    Order currentOrder;
 
     // Bool to determine if timer has started
     [SerializeField]
@@ -77,6 +87,31 @@ public class GameManager : MonoBehaviour
     // Bool to determine if player can pull a pint
     [SerializeField]
     private bool canPullPint;
+
+    // List of type ingredient to act as player inventory
+    [SerializeField]
+    private List<Ingredient> inventory;
+
+    // Bool to determine if all ingredients have been collected
+    [SerializeField]
+    private bool allIngredientsCollected;
+
+    // Bool to determine if player has collected shaker
+    [SerializeField]
+    private bool shakerCollected;
+
+    public int shakeScore;
+    #endregion
+
+    #region Times Ingredients Collected
+    [Header("Times Ingredients Collected")]
+
+    #region Diaquiri
+    public int rumCollected;
+    public int sugarSyrupCollected;
+    public int limeJuiceCollected;
+    #endregion
+
     #endregion
 
     #endregion
@@ -88,6 +123,7 @@ public class GameManager : MonoBehaviour
         // Instantiate values
         orderQueue = new Queue<Order>();
         drinksList = new List<string>();
+        inventory = new List<Ingredient>();
 
         // Add drinks to list
         AddDrinks();
@@ -96,7 +132,23 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if all ingredients are collected based on what drink needs to be made
+        if (drinkToBeCreated == Drinks.daiquiri)
+        {
+            if (rumCollected == 1 && sugarSyrupCollected == 1 && limeJuiceCollected == 1 && !hasDisplayed)
+            {
+                DisplayAllIngredientsCollected();
+                hasDisplayed = true;
+                allIngredientsCollected = true;
+            }
+        }
 
+        if (allIngredientsCollected && shakerCollected)
+        {
+            ShakeCocktail();
+        }
+
+        print(shakeScore);
     }
 
     public void CreateOrder()
@@ -122,6 +174,8 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Daiquiri";
                         newOrder.orderImage = daiqImage;
                         drinkToBeCreated = Drinks.daiquiri;
+
+                        currentOrder = newOrder;
                     }
                     break;
 
@@ -131,6 +185,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Old Fasioned";
                         newOrder.orderImage = ofImage;
                         drinkToBeCreated = Drinks.oldFashioned;
+                        currentOrder = newOrder;
                     }
                     break;
 
@@ -140,6 +195,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Margarita";
                         newOrder.orderImage = margImage;
                         drinkToBeCreated = Drinks.margarita;
+                        currentOrder = newOrder;
                     }
                     break;
 
@@ -149,6 +205,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Passionfruit Martini";
                         newOrder.orderImage = pfmImage;
                         drinkToBeCreated = Drinks.passionfruitMartini;
+                        currentOrder = newOrder;
                     }
                     break;
 
@@ -158,6 +215,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Pint of Lager";
                         newOrder.orderImage = lagerImage;
                         drinkToBeCreated = Drinks.lager;
+                        currentOrder = newOrder;
                     }
                     break;
 
@@ -167,6 +225,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Pint of Cider";
                         newOrder.orderImage = ciderImage;
                         drinkToBeCreated = Drinks.cider;
+                        currentOrder = newOrder;
                     }
                     break;
             }
@@ -227,9 +286,38 @@ public class GameManager : MonoBehaviour
                 CompleteDrink();
             }
         }
-        else
+
+        if (Input.GetKeyDown(KeyCode.E) && canPullPint)
         {
-            print("Can't pull yet");
+            if (drinkToBeCreated == Drinks.lager)
+            {
+                // Play lager pouring audio
+                FindObjectOfType<AudioManager>().Play("LagerPouring");
+            }
+
+            if (drinkToBeCreated == Drinks.cider)
+            {
+                // Play cider pouring audio
+                FindObjectOfType<AudioManager>().Play("CiderPouring");
+            }
+        }
+    }
+
+    public void ShakeCocktail()
+    {
+        if (allIngredientsCollected && shakerCollected)
+        {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+            {
+                shakeScore++;
+            }
+
+            if (shakeScore >= 45)
+            {
+                CompleteDrink();
+            }
+
+            // One in 100 chance of shaker popping open
         }
     }
 
@@ -237,6 +325,12 @@ public class GameManager : MonoBehaviour
     {
         drinkCompleteText.gameObject.SetActive(true);
         drinkCompleteText.text = "Drink complete!";
+
+        ResetAllIngredients();
+
+        shakeScore = 0;
+
+        shakerCollected = false;
 
         player.AddScore(10);
 
@@ -256,27 +350,103 @@ public class GameManager : MonoBehaviour
         CreateOrder();
     }
 
+    IEnumerator WaitToRemoveIngredientCollectedText()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        ingredientCollectedText.gameObject.SetActive(false);
+    }
+
+    IEnumerator WaitToRemoveAllCollectedText()
+    {
+        yield return new WaitForSeconds(3);
+
+        allCollectedText.gameObject.SetActive(false);
+    }
+
     #endregion
 
     #region Misc Methods
-    public void HandleCollision(string station)
+    public void HandleCollision(string ingredient)
     {
         // Check if player is at correct drink station
         // If drink to be created is a lager and player is at lager tap
-        if (drinkToBeCreated == Drinks.lager && station == "Lager")
+        if (drinkToBeCreated == Drinks.lager && ingredient == "Lager")
         {
             // Display pull Lager text
             DisplayPullDrinkText("Lager");
             PullDrink();
         }
         // If drink to be created is cider and player is at cider tap
-        else if (drinkToBeCreated == Drinks.cider && station == "Cider")
+        else if (drinkToBeCreated == Drinks.cider && ingredient == "Cider")
         {
             // Display pull cider text
             DisplayPullDrinkText("Cider");
             PullDrink();
         }
-        // Carry on with cocktail stuff when ready
+
+        // If drink to be created is a daiquiri
+        if (drinkToBeCreated == Drinks.daiquiri)
+        {
+            if (ingredient == "Rum" && rumCollected == 0)
+            {
+                // Add rum to inventory
+                Ingredient rum = FindObjectOfType<Ingredient>();
+                rum.ingredientName = "Rum";
+                rumCollected++;
+
+                inventory.Add(rum);
+
+                DisplayIngredientCollected("Rum");
+            }
+
+            if (ingredient == "Sugar Syrup" && sugarSyrupCollected == 0)
+            {
+                // Add Sugar syrup to inventory
+                Ingredient sugarSyrup = FindObjectOfType<Ingredient>();
+                sugarSyrup.ingredientName = "Sugar Syrup";
+                sugarSyrupCollected++;
+
+                inventory.Add(sugarSyrup);
+
+                DisplayIngredientCollected("Sugar Syrup");
+            }
+
+            if (ingredient == "Lime Juice" && limeJuiceCollected == 0)
+            {
+                // Add lime juice to inventory
+                Ingredient limeJuice = FindObjectOfType<Ingredient>();
+                limeJuice.ingredientName = "Lime Juice";
+                limeJuiceCollected++;
+
+                inventory.Add(limeJuice);
+
+                DisplayIngredientCollected("Lime Juice");
+            }
+        }
+
+    }
+
+    private void DisplayIngredientCollected(string name)
+    {
+        ingredientCollectedText.gameObject.SetActive(true);
+        ingredientCollectedText.text = name + " Collected!";
+        StartCoroutine(WaitToRemoveIngredientCollectedText());
+    }
+
+    private void DisplayAllIngredientsCollected()
+    {
+        allCollectedText.gameObject.SetActive(true);
+        allCollectedText.text = "All ingredients collected, add to a shaker and shake by pressing A and D!";
+
+        StartCoroutine(WaitToRemoveAllCollectedText());
+    }
+
+    private void ResetAllIngredients()
+    {
+        rumCollected = 0;
+        sugarSyrupCollected = 0;
+        limeJuiceCollected = 0;
     }
 
     private void StepTimer()

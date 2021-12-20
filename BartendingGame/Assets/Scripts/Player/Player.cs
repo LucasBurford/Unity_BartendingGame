@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
     public void AddScore(int score)
     {
-        playerScore = score;
+        playerScore += score;
     }
 
     private void OnTriggerStay(Collider other)
@@ -67,6 +67,24 @@ public class Player : MonoBehaviour
             {
                 gameManager.HandleCollision("Cider");
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Rum")
+        {
+            gameManager.HandleCollision("Rum");
+        }
+
+        if (other.gameObject.name == "SugarSyrup")
+        {
+            gameManager.HandleCollision("Sugar Syrup");
+        }
+
+        if (other.gameObject.name == "LimeJuice")
+        {
+            gameManager.HandleCollision("Lime Juice");
         }
     }
 
