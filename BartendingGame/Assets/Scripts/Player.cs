@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     #region Fields
     [Header("References")]
-    GameManager gameManager;
+    public GameManager gameManager;
 
     [Header("Gameplay and spec")]
     // Player name
@@ -48,5 +48,23 @@ public class Player : MonoBehaviour
     public void AddScore(int score)
     {
         playerScore = score;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name == "LagerTap")
+        {
+            gameManager.DisplayPullDrinkText("Lager");
+        }
+        
+        if (other.gameObject.name == "CiderTap")
+        {
+            gameManager.DisplayPullDrinkText("Cider");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        gameManager.LeftCollider();
     }
 }

@@ -15,11 +15,17 @@ public class GameManager : MonoBehaviour
     // Reference to order text
     public TMP_Text orderText;
 
+    // Reference to create drink text
+    public TMP_Text createDrinkText;
+
     // Reference to order image
     public Image orderImage;
 
     // Reference to timer slider
     public Slider timerSlider;
+
+    // Reference to drink completion slider
+    public Slider drinkCompletionSlider;
 
     // Drinks images - store in memory
     public Sprite daiqImage, ofImage, margImage, pfmImage, lagerImage, ciderImage;
@@ -27,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     #region Gameplay and spec
     [Header("Gameplay and spec")]
+
     // Queue of orders
     public Queue<Order> orderQueue;
 
@@ -41,6 +48,19 @@ public class GameManager : MonoBehaviour
     // Bool to determine if an order is already up
     [SerializeField]
     private bool orderUp;
+
+    // Enum to hold what drink needs to be created
+    [SerializeField]
+    private Drinks drinkToBeCreated;
+    public enum Drinks
+    {
+        daiquiri,
+        oldFashioned,
+        margarita,
+        passionfruitMartini,
+        lager,
+        cider
+    }
     #endregion
 
     #endregion
@@ -85,6 +105,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Daiquiri";
                         newOrder.orderImage = daiqImage;
+                        drinkToBeCreated = Drinks.daiquiri;
                     }
                     break;
 
@@ -93,6 +114,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Old Fasioned";
                         newOrder.orderImage = ofImage;
+                        drinkToBeCreated = Drinks.oldFashioned;
                     }
                     break;
 
@@ -101,6 +123,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Margarita";
                         newOrder.orderImage = margImage;
+                        drinkToBeCreated = Drinks.margarita;
                     }
                     break;
 
@@ -109,6 +132,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Passionfruit Martini";
                         newOrder.orderImage = pfmImage;
+                        drinkToBeCreated = Drinks.passionfruitMartini;
                     }
                     break;
 
@@ -117,6 +141,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Pint of Lager";
                         newOrder.orderImage = lagerImage;
+                        drinkToBeCreated = Drinks.lager;
                     }
                     break;
 
@@ -125,6 +150,7 @@ public class GameManager : MonoBehaviour
                     {
                         newOrder.orderName = "Pint of Cider";
                         newOrder.orderImage = ciderImage;
+                        drinkToBeCreated = Drinks.cider;
                     }
                     break;
             }
@@ -154,15 +180,31 @@ public class GameManager : MonoBehaviour
         orderImage.sprite = pOrder.orderImage;
     }
 
+    public void RemoveOrder()
+    {
+        orderQueue.Dequeue();
+        print("Order removed");
+    }
+
+    public void DisplayPullDrinkText(string tapType)
+    {
+        createDrinkText.text = "Hold E to pull " + tapType;
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            drinkCompletionSlider.value += 1f;
+        }
+    }
+
+    #region Misc Methods
     private void StepTimer()
     {
         timerSlider.value -= 1;
     }
 
-    public void RemoveOrder()
+    public void LeftCollider()
     {
-        orderQueue.Dequeue();
-        print("Order removed");
+        createDrinkText.text = "";
     }
 
     private void AddDrinks()
@@ -174,4 +216,5 @@ public class GameManager : MonoBehaviour
         drinksList.Add("Pint of lager");
         drinksList.Add("Pint of cider");
     }
+    #endregion
 }
