@@ -163,8 +163,26 @@ public class GameManager : MonoBehaviour
 
     #region Diaquiri
     public int rumCollected;
-    public int sugarSyrupCollected;
-    public int limeJuiceCollected;
+    public int dSugarSyrupCollected;
+    public int dLimeJuiceCollected;
+    #endregion
+
+    #region Margarita
+    public int tequilaCollected;
+    public int mLimeJuiceCollected;
+    public int cointreauCollected;
+    #endregion
+
+    #region Old Fashioned
+    public int whiskeyCollected;
+    public int ofSugarSyrupCollected;
+    public int bittersCollected;
+    #endregion
+
+    #region Passionfruit Martini
+    public int vodkaCollected;
+    public int passoaCollected;
+    public int passionfruitPureeCollected;
     #endregion
 
     #endregion
@@ -197,7 +215,37 @@ public class GameManager : MonoBehaviour
         // Check if all ingredients are collected based on what drink needs to be made
         if (drinkToBeCreated == Drinks.daiquiri)
         {
-            if (rumCollected == 1 && sugarSyrupCollected == 1 && limeJuiceCollected == 1 && !hasDisplayed)
+            if (rumCollected == 1 && dSugarSyrupCollected == 1 && dLimeJuiceCollected == 1 && !hasDisplayed)
+            {
+                DisplayAllIngredientsCollected();
+                hasDisplayed = true;
+                allIngredientsCollected = true;
+            }
+        }
+
+        if (drinkToBeCreated == Drinks.margarita)
+        {
+            if (tequilaCollected == 1 && cointreauCollected == 1 && mLimeJuiceCollected == 1 &&!hasDisplayed)
+            {
+                DisplayAllIngredientsCollected();
+                hasDisplayed = true;
+                allIngredientsCollected = true;
+            }
+        }
+
+        if (drinkToBeCreated == Drinks.oldFashioned)
+        {
+            if (whiskeyCollected == 1 && ofSugarSyrupCollected == 1 && bittersCollected == 1 && !hasDisplayed)
+            {
+                DisplayAllIngredientsCollected();
+                hasDisplayed = true;
+                allIngredientsCollected = true;
+            }
+        }
+
+        if (drinkToBeCreated == Drinks.passionfruitMartini)
+        {
+            if (vodkaCollected == 1 && passoaCollected == 1 && passionfruitPureeCollected == 1 && !hasDisplayed)
             {
                 DisplayAllIngredientsCollected();
                 hasDisplayed = true;
@@ -208,15 +256,6 @@ public class GameManager : MonoBehaviour
         if (allIngredientsCollected && shakerCollected)
         {
             ShakeCocktail();
-        }
-
-        if (shaking)
-        {
-            playerMovement.canMove = false;
-        }
-        else
-        {
-            playerMovement.canMove = true;
         }
 
         if (TEST)
@@ -534,6 +573,7 @@ public class GameManager : MonoBehaviour
     #region Misc Methods
     public void HandleCollision(string collision)
     {
+        #region Taps
         // Check if player is at correct drink station
         // If drink to be created is a lager and player is at lager tap
         if (drinkToBeCreated == Drinks.lager && collision == "Lager")
@@ -549,7 +589,9 @@ public class GameManager : MonoBehaviour
             DisplayPullDrinkText("Cider");
             PullDrink();
         }
+        #endregion
 
+        #region Cocktails
         // If drink to be created is a daiquiri
         if (drinkToBeCreated == Drinks.daiquiri)
         {
@@ -565,28 +607,107 @@ public class GameManager : MonoBehaviour
                 DisplayIngredientCollected("Rum");
             }
 
-            if (collision == "Sugar Syrup" && sugarSyrupCollected == 0)
+            if (collision == "SugarSyrup" && dSugarSyrupCollected == 0)
             {
                 // Add Sugar syrup to inventory
                 Ingredient sugarSyrup = FindObjectOfType<Ingredient>();
                 sugarSyrup.ingredientName = "Sugar Syrup";
-                sugarSyrupCollected++;
+                dSugarSyrupCollected++;
 
                 inventory.Add(sugarSyrup);
 
                 DisplayIngredientCollected("Sugar Syrup");
             }
 
-            if (collision == "Lime Juice" && limeJuiceCollected == 0)
+            if (collision == "LimeJuice" && dLimeJuiceCollected == 0)
             {
                 // Add lime juice to inventory
                 Ingredient limeJuice = FindObjectOfType<Ingredient>();
                 limeJuice.ingredientName = "Lime Juice";
-                limeJuiceCollected++;
+                dLimeJuiceCollected++;
 
                 inventory.Add(limeJuice);
 
                 DisplayIngredientCollected("Lime Juice");
+            }
+        }
+
+        // If drink to be created is a marg
+        if (drinkToBeCreated == Drinks.margarita)
+        {
+            if (collision == "Tequila" && tequilaCollected == 0)
+            {
+                tequilaCollected++;
+                DisplayIngredientCollected("Tequila");
+            }
+
+            if (collision == "LimeJuice" && mLimeJuiceCollected == 0)
+            {
+                mLimeJuiceCollected++;
+                DisplayIngredientCollected("Lime Juice");
+            }
+
+            if (collision == "Cointreau" && cointreauCollected == 0)
+            {
+                cointreauCollected++;
+                DisplayIngredientCollected("Cointreau");
+            }
+        }
+
+        // If drink to be created is an old fasioned
+        if (drinkToBeCreated == Drinks.oldFashioned)
+        {
+            if (collision == "Whiskey" && whiskeyCollected == 0)
+            {
+                whiskeyCollected++;
+                DisplayIngredientCollected("Whiskey");
+            }
+
+            if (collision == "SugarSyrup" && ofSugarSyrupCollected == 0)
+            {
+                ofSugarSyrupCollected++;
+                DisplayIngredientCollected("Sugar Syrup");
+            }
+
+            if (collision == "Bitters" && bittersCollected == 0)
+            {
+                bittersCollected++;
+                DisplayIngredientCollected("Bitters");
+            }
+        }
+
+        // If drink to be created is a passionfruit martini
+        if (drinkToBeCreated == Drinks.passionfruitMartini)
+        {
+            if (collision == "Vodka" && vodkaCollected == 0)
+            {
+                vodkaCollected++;
+                DisplayIngredientCollected("Vodka");
+            }
+
+            if (collision == "Passoa" && passoaCollected == 0)
+            {
+                passoaCollected++;
+                DisplayIngredientCollected("Passoa");
+            }
+
+            if (collision == "PassionfruitPuree" && passionfruitPureeCollected == 0)
+            {
+                passionfruitPureeCollected++;
+                DisplayIngredientCollected("Passionfruit puree");
+            }
+        }
+        #endregion
+
+        if (collision == "CocktailShaker")
+        {
+            if (!allIngredientsCollected)
+            {
+                print("Collect all ingredients first!");
+            }
+            else
+            {
+                shakerCollected = true;
             }
         }
 
@@ -610,8 +731,20 @@ public class GameManager : MonoBehaviour
     private void ResetAllIngredients()
     {
         rumCollected = 0;
-        sugarSyrupCollected = 0;
-        limeJuiceCollected = 0;
+        dSugarSyrupCollected = 0;
+        dLimeJuiceCollected = 0;
+
+        tequilaCollected = 0;
+        cointreauCollected = 0;
+        mLimeJuiceCollected = 0;
+
+        whiskeyCollected = 0;
+        ofSugarSyrupCollected = 0;
+        bittersCollected = 0;
+
+        vodkaCollected = 0;
+        passoaCollected = 0;
+        passionfruitPureeCollected = 0;
     }
 
     private void StepTimer()

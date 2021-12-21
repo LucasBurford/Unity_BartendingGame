@@ -68,25 +68,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Rum")
-        {
-            gameManager.HandleCollision("Rum");
-        }
-
-        if (other.gameObject.name == "SugarSyrup")
-        {
-            gameManager.HandleCollision("Sugar Syrup");
-        }
-
-        if (other.gameObject.name == "LimeJuice")
-        {
-            gameManager.HandleCollision("Lime Juice");
-        }
-
-        if (other.gameObject.name == "CocktailShaker")
-        {
-            gameManager.shakerCollected = true;
-        }
+        gameManager.HandleCollision(other.gameObject.name);
     }
 
     private void OnTriggerExit(Collider other)
