@@ -10,9 +10,18 @@ public class GameManager : MonoBehaviour
 
     #region References
     [Header("References")]
+
+    #region General references
+
     // Reference to Player script
     public Player player;
 
+    // Reference to ingredient images game object
+    public GameObject ingredientImages;
+    #endregion
+
+    #region Text fields
+    [Header("Text fields")]
     // Reference to order text
     public TMP_Text orderText;
 
@@ -28,29 +37,88 @@ public class GameManager : MonoBehaviour
     // Reference to all ingredients collected text
     public TMP_Text allCollectedText;
     private bool hasDisplayed;
+    #endregion
 
+    #region Image fields
+    [Header("Image fields")]
     // Reference to order image
     public Image orderImage;
 
+    // Reference to ingredient images
+    public Image ingredient1Image, ingredient2Image, ingredient3Image;
+
+    // Drinks images - store in memory
+    public Sprite daiqImage, ofImage, margImage, pfmImage, lagerImage, ciderImage;
+
+    // Ingredient images - store in memory
+    public Sprite ingRum, ingSugarSyrup, ingLimeJuice, ingWhiskey, ingVodka, ingPassionFruitLiq;
+    #endregion
+
+    #region Sliders
+    [Header("Sliders")]
     // Reference to timer slider
     public Slider timerSlider;
 
     // Reference to drink completion slider
-    public Slider drinkCompletionSlider;
-
-    // Drinks images - store in memory
-    public Sprite daiqImage, ofImage, margImage, pfmImage, lagerImage, ciderImage;
+    public Slider pintCompletionSlider;
+    #endregion
     #endregion
 
     #region Gameplay and spec
     [Header("Gameplay and spec")]
 
+    #region Floats and ints
+    [Header("Floats and ints")]
+
     // Drink completion rate
     [SerializeField]
     private float drinkCompletionRate;
 
+    // Float to store drink completion
+    [SerializeField]
+    private float pintCompletion;
+
+    // Float to store timer max time
+    [SerializeField]
+    private float timerMaxTime;
+
+    // Int to store shake score
+    [SerializeField]
+    private int shakeScore;
+    #endregion
+
+    #region Bools
+    [Header("Bools")]
+
+    // Bool to determine if an order is already up
+    [SerializeField]
+    private bool orderUp;
+
+    // Bool to determine if player can pull a pint
+    [SerializeField]
+    private bool canPullPint;
+
+    // Bool to determine if all ingredients have been collected
+    [SerializeField]
+    private bool allIngredientsCollected;
+
+    // Bool to determine if player has collected shaker
+    public bool shakerCollected;
+
+    // Bool to determine if timer has started
+    [SerializeField]
+    private bool timerStarted;
+    #endregion
+
+    #region Misc fields
+    [Header("Misc fields")]
+
+    // List of type ingredient to act as player inventory
+    [SerializeField]
+    private List<Ingredient> inventory;
+
     // Queue of orders
-    public Queue<Order> orderQueue;
+    public List<Order> orderList;
 
     // List to hold drink types
     [SerializeField]
@@ -58,14 +126,6 @@ public class GameManager : MonoBehaviour
 
     // Hold current order
     Order currentOrder;
-
-    // Bool to determine if timer has started
-    [SerializeField]
-    private bool timerStarted;
-
-    // Bool to determine if an order is already up
-    [SerializeField]
-    private bool orderUp;
 
     // Enum to hold what drink needs to be created
     [SerializeField]
@@ -79,28 +139,7 @@ public class GameManager : MonoBehaviour
         lager,
         cider
     }
-
-    // Float to store drink completion
-    [SerializeField]
-    private float drinkCompletion;
-
-    // Bool to determine if player can pull a pint
-    [SerializeField]
-    private bool canPullPint;
-
-    // List of type ingredient to act as player inventory
-    [SerializeField]
-    private List<Ingredient> inventory;
-
-    // Bool to determine if all ingredients have been collected
-    [SerializeField]
-    private bool allIngredientsCollected;
-
-    // Bool to determine if player has collected shaker
-    [SerializeField]
-    private bool shakerCollected;
-
-    public int shakeScore;
+    #endregion
     #endregion
 
     #region Times Ingredients Collected
@@ -121,7 +160,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Instantiate values
-        orderQueue = new Queue<Order>();
+        orderList = new List<Order>();
         drinksList = new List<string>();
         inventory = new List<Ingredient>();
 
@@ -148,7 +187,7 @@ public class GameManager : MonoBehaviour
             ShakeCocktail();
         }
 
-        print(shakeScore);
+        print(shakerCollected);
     }
 
     public void CreateOrder()
@@ -163,7 +202,7 @@ public class GameManager : MonoBehaviour
             Order newOrder = FindObjectOfType<Order>();
 
             // Generate random number to get a random order
-            int rand = Random.Range(1, drinksList.Count);
+            int rand = Random.Range(1, 1);
 
             // Set order based on rand
             switch (rand)
@@ -174,8 +213,6 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Daiquiri";
                         newOrder.orderImage = daiqImage;
                         drinkToBeCreated = Drinks.daiquiri;
-
-                        currentOrder = newOrder;
                     }
                     break;
 
@@ -185,7 +222,6 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Old Fasioned";
                         newOrder.orderImage = ofImage;
                         drinkToBeCreated = Drinks.oldFashioned;
-                        currentOrder = newOrder;
                     }
                     break;
 
@@ -195,7 +231,6 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Margarita";
                         newOrder.orderImage = margImage;
                         drinkToBeCreated = Drinks.margarita;
-                        currentOrder = newOrder;
                     }
                     break;
 
@@ -205,7 +240,6 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Passionfruit Martini";
                         newOrder.orderImage = pfmImage;
                         drinkToBeCreated = Drinks.passionfruitMartini;
-                        currentOrder = newOrder;
                     }
                     break;
 
@@ -215,7 +249,7 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Pint of Lager";
                         newOrder.orderImage = lagerImage;
                         drinkToBeCreated = Drinks.lager;
-                        currentOrder = newOrder;
+                        canPullPint = true;
                     }
                     break;
 
@@ -225,13 +259,21 @@ public class GameManager : MonoBehaviour
                         newOrder.orderName = "Pint of Cider";
                         newOrder.orderImage = ciderImage;
                         drinkToBeCreated = Drinks.cider;
-                        currentOrder = newOrder;
+                        canPullPint = true;
                     }
                     break;
             }
 
-            // Display the order
+            // Add the new order to orderList
+            currentOrder = newOrder;
+            orderList.Add(newOrder);
+
+            // Display the order and ingredients
             DisplayOrder(newOrder);
+            DisplayIngredientImages();
+
+            // Reset timer
+            timerSlider.value = timerMaxTime;
 
             // Only start timer if it hasn't already started
             if (!timerStarted)
@@ -251,13 +293,44 @@ public class GameManager : MonoBehaviour
 
     private void DisplayOrder(Order pOrder)
     {
+        // Instantiate a new order prefab
+
         orderText.text = pOrder.orderName;
         orderImage.sprite = pOrder.orderImage;
     }
 
-    public void RemoveOrder()
+    private void DisplayIngredientImages()
     {
-        orderQueue.Dequeue();
+        ingredientImages.gameObject.SetActive(true);
+
+        // Display correct ingredients based on what the order is
+        switch (drinkToBeCreated)
+        {
+            // If current order is Daiquiri - rum, sugar syrup and lime juice
+            case Drinks.daiquiri:
+                {
+                    ingredient1Image.sprite = ingRum;
+                    ingredient2Image.sprite = ingSugarSyrup;
+                    ingredient3Image.sprite = ingLimeJuice;
+                }
+                break;
+        }
+    }
+
+    private void RemoveIngredientImages()
+    {
+        // Disable images
+        ingredientImages.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Remove order from list at specified index
+    /// </summary>
+    /// <param name="removeAt">Order number to be removed</param>
+    public void RemoveOrder(int removeAt)
+    {
+        // Remove specific order from list
+        orderList.RemoveAt(removeAt);
         print("Order removed");
     }
 
@@ -271,15 +344,15 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.E) && canPullPint)
         {
             // Fill drinkCompletion
-            drinkCompletion += drinkCompletionRate;
+            pintCompletion += drinkCompletionRate;
             // Keep drink completion slider updated to drink completion
-            drinkCompletionSlider.value += drinkCompletion / 10;
+            pintCompletionSlider.value += pintCompletion / 10;
 
             // If drinkComplettion reaches or exceeds 100
-            if (drinkCompletion >= 100)
+            if (pintCompletion >= 100)
             {
                 // Stop player from further filling it
-                drinkCompletion = 100;
+                pintCompletion = 100;
                 canPullPint = false;
 
                 // Wait to generate a new order
@@ -310,6 +383,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
             {
                 shakeScore++;
+                print(shakeScore);
             }
 
             if (shakeScore >= 45)
@@ -326,13 +400,20 @@ public class GameManager : MonoBehaviour
         drinkCompleteText.gameObject.SetActive(true);
         drinkCompleteText.text = "Drink complete!";
 
-        ResetAllIngredients();
-
+        pintCompletion = 0;
         shakeScore = 0;
 
+        pintCompletionSlider.value = 0;
+
         shakerCollected = false;
+        canPullPint = false;
+        orderUp = false;
 
         player.AddScore(10);
+
+        RemoveOrder(0);
+        ResetAllIngredients();
+        RemoveIngredientImages();
 
         StartCoroutine(WaitToGetNewOrder());
     }
@@ -344,9 +425,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         drinkCompleteText.gameObject.SetActive(false);
-        drinkCompletion = 0;
-        drinkCompletionSlider.value = 0;
-        canPullPint = true;
         CreateOrder();
     }
 

@@ -35,8 +35,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("Player Name: " + playerName);
-        print("Player Score: " + playerScore);
+
     }
 
     // Update is called once per frame
@@ -85,6 +84,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.name == "LimeJuice")
         {
             gameManager.HandleCollision("Lime Juice");
+        }
+
+        if (other.gameObject.name == "CocktailShaker")
+        {
+            gameManager.shakerCollected = true;
         }
     }
 

@@ -10,4 +10,21 @@ public class Order : MonoBehaviour
 
     // Image of the order
     public Sprite orderImage;
+
+    // Time left to complete order
+    public float timeLeft;
+
+    // Decrease time by this amount
+    public float decreaseTime;
+
+    // Bool to determine if order is active
+    public bool orderActive;
+
+    public void Update()
+    {
+        if (orderActive)
+        {
+            timeLeft -= decreaseTime;
+        }
+    }
 }
