@@ -96,6 +96,10 @@ public class GameManager : MonoBehaviour
     // Float to store shakeScore deduction
     [SerializeField]
     private float shakeScoreReduce;
+
+    // Store total number of drinks completed
+    [SerializeField]
+    private int drinksCompleted;
     #endregion
 
     #region Bools
@@ -270,7 +274,7 @@ public class GameManager : MonoBehaviour
         if (!orderUp)
         {
             // Set orderUp to true
-            //orderUp = true;
+            orderUp = true;
 
             // Play new order ding
             FindObjectOfType<AudioManager>().Play("NewOrderDing");
@@ -348,8 +352,8 @@ public class GameManager : MonoBehaviour
             // Display the order and ingredients
             DisplayOrder(newOrder);
 
-            // Reset timer
-            timerSlider.value = timerMaxTime;
+            // Reset timer - after each completion reduce by number of drinks completed to add tension
+            timerSlider.value = timerMaxTime - drinksCompleted;
 
             // Only start timer if it hasn't already started
             if (!timerStarted)
@@ -442,10 +446,6 @@ public class GameManager : MonoBehaviour
         ingredientImages.gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Remove order from list at specified index
-    /// </summary>
-    /// <param name="removeAt">Order number to be removed</param>
     public void RemoveOrder(int removeAt)
     {
         // Remove specific order from list
@@ -522,7 +522,8 @@ public class GameManager : MonoBehaviour
         drinkCompleteText.gameObject.SetActive(true);
         drinkCompleteText.text = "Drink complete!";
 
-        // Remove shaker slider
+        drinksCompleted++;
+
         cocktailCompletionSlider.gameObject.SetActive(false);
 
         createDrinkText.gameObject.SetActive(false);
