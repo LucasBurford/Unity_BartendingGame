@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
 
     // Reference to Player script
     public Player player;
+    public PlayerMovement playerMovement;
 
     // Reference to ingredient images game object
     public GameObject ingredientImages;
+
+    //  Shaking audio
+    public AudioSource cocktailShaking;
     #endregion
 
     #region Text fields
@@ -61,6 +65,9 @@ public class GameManager : MonoBehaviour
 
     // Reference to drink completion slider
     public Slider pintCompletionSlider;
+
+    // Reference to cocktail completion slider
+    public Slider cocktailCompletionSlider;
     #endregion
     #endregion
 
@@ -84,7 +91,11 @@ public class GameManager : MonoBehaviour
 
     // Int to store shake score
     [SerializeField]
-    private int shakeScore;
+    private float shakeScore;
+
+    // Float to store shakeScore deduction
+    [SerializeField]
+    private float shakeScoreReduce;
     #endregion
 
     #region Bools
@@ -108,6 +119,10 @@ public class GameManager : MonoBehaviour
     // Bool to determine if timer has started
     [SerializeField]
     private bool timerStarted;
+
+    // Bool to determine if player is shaking cocktail
+    [SerializeField]
+    private bool shaking;
     #endregion
 
     #region Misc fields
@@ -132,6 +147,7 @@ public class GameManager : MonoBehaviour
     private Drinks drinkToBeCreated;
     public enum Drinks
     {
+        none,
         daiquiri,
         oldFashioned,
         margarita,
@@ -153,6 +169,11 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region TESTING - REMOVE
+    [Header("TESTING")]
+    public bool TEST = true;
+    #endregion
+
     #endregion
 
 
@@ -163,6 +184,8 @@ public class GameManager : MonoBehaviour
         orderList = new List<Order>();
         drinksList = new List<string>();
         inventory = new List<Ingredient>();
+
+        drinkToBeCreated = Drinks.none;
 
         // Add drinks to list
         AddDrinks();
@@ -187,7 +210,19 @@ public class GameManager : MonoBehaviour
             ShakeCocktail();
         }
 
-        print(shakerCollected);
+        if (shaking)
+        {
+            playerMovement.canMove = false;
+        }
+        else
+        {
+            playerMovement.canMove = true;
+        }
+
+        if (TEST)
+        {
+            ShakeCocktail();
+        }
     }
 
     public void CreateOrder()
@@ -202,7 +237,7 @@ public class GameManager : MonoBehaviour
             Order newOrder = FindObjectOfType<Order>();
 
             // Generate random number to get a random order
-            int rand = Random.Range(1, 1);
+            int rand = Random.Range(5, 7);
 
             // Set order based on rand
             switch (rand)
@@ -270,7 +305,12 @@ public class GameManager : MonoBehaviour
 
             // Display the order and ingredients
             DisplayOrder(newOrder);
-            DisplayIngredientImages();
+            
+            // Only display ingredients if the drink to be created is a cocktail
+            if (drinkToBeCreated != Drinks.lager || drinkToBeCreated != Drinks.cider)
+            {
+                DisplayIngredientImages();
+            }
 
             // Reset timer
             timerSlider.value = timerMaxTime;
@@ -378,27 +418,35 @@ public class GameManager : MonoBehaviour
 
     public void ShakeCocktail()
     {
-        if (allIngredientsCollected && shakerCollected)
+        // Show shaker slider
+        cocktailCompletionSlider.gameObject.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-            {
-                shakeScore++;
-                print(shakeScore);
-            }
-
-            if (shakeScore >= 45)
-            {
-                CompleteDrink();
-            }
-
-            // One in 100 chance of shaker popping open
+            shakeScore++;
         }
+        else if (shakeScore > 1)
+        {
+            shakeScore -= shakeScoreReduce;
+        }
+
+        if (shakeScore >= 45)
+        {
+            CompleteDrink();
+        }
+
+        cocktailCompletionSlider.value = shakeScore;
+
+        // One in 100 chance of shaker popping open
     }
 
     private void CompleteDrink()
     {
         drinkCompleteText.gameObject.SetActive(true);
         drinkCompleteText.text = "Drink complete!";
+
+        // Remove shaker slider
+        cocktailCompletionSlider.gameObject.SetActive(false);
 
         pintCompletion = 0;
         shakeScore = 0;
@@ -411,7 +459,6 @@ public class GameManager : MonoBehaviour
 
         player.AddScore(10);
 
-        RemoveOrder(0);
         ResetAllIngredients();
         RemoveIngredientImages();
 
@@ -445,18 +492,18 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Misc Methods
-    public void HandleCollision(string ingredient)
+    public void HandleCollision(string collision)
     {
         // Check if player is at correct drink station
         // If drink to be created is a lager and player is at lager tap
-        if (drinkToBeCreated == Drinks.lager && ingredient == "Lager")
+        if (drinkToBeCreated == Drinks.lager && collision == "Lager")
         {
             // Display pull Lager text
             DisplayPullDrinkText("Lager");
             PullDrink();
         }
         // If drink to be created is cider and player is at cider tap
-        else if (drinkToBeCreated == Drinks.cider && ingredient == "Cider")
+        if (drinkToBeCreated == Drinks.cider && collision == "Cider")
         {
             // Display pull cider text
             DisplayPullDrinkText("Cider");
@@ -466,7 +513,7 @@ public class GameManager : MonoBehaviour
         // If drink to be created is a daiquiri
         if (drinkToBeCreated == Drinks.daiquiri)
         {
-            if (ingredient == "Rum" && rumCollected == 0)
+            if (collision == "Rum" && rumCollected == 0)
             {
                 // Add rum to inventory
                 Ingredient rum = FindObjectOfType<Ingredient>();
@@ -478,7 +525,7 @@ public class GameManager : MonoBehaviour
                 DisplayIngredientCollected("Rum");
             }
 
-            if (ingredient == "Sugar Syrup" && sugarSyrupCollected == 0)
+            if (collision == "Sugar Syrup" && sugarSyrupCollected == 0)
             {
                 // Add Sugar syrup to inventory
                 Ingredient sugarSyrup = FindObjectOfType<Ingredient>();
@@ -490,7 +537,7 @@ public class GameManager : MonoBehaviour
                 DisplayIngredientCollected("Sugar Syrup");
             }
 
-            if (ingredient == "Lime Juice" && limeJuiceCollected == 0)
+            if (collision == "Lime Juice" && limeJuiceCollected == 0)
             {
                 // Add lime juice to inventory
                 Ingredient limeJuice = FindObjectOfType<Ingredient>();

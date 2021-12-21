@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool isSprinting;
 
+    // Bool to determine if player can move
+    public bool canMove;
+
     #endregion
 
     // Start is called once per frame
@@ -44,6 +47,13 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        rb.velocity = new Vector3(horizontalInput, rb.velocity.y, verticalInput) * moveSpeed;
+        if (canMove)
+        {
+            rb.velocity = new Vector3(horizontalInput, rb.velocity.y, verticalInput) * moveSpeed;
+        }
+        else
+        {
+            print("Can't move");
+        }
     }
 }
