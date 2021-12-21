@@ -6,7 +6,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
 
+    public CharacterController controller;
+
     [Header("Gameplay and spec")]
+
+    public Vector3 move;
 
     // The move speed of the player
     [SerializeField]
@@ -40,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         movementDirection.Normalize();
 
+        move = movementDirection;
+
         if (movementDirection != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
@@ -49,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (canMove)
         {
-            rb.velocity = new Vector3(horizontalInput, rb.velocity.y, verticalInput) * moveSpeed;
+            controller.Move(move * moveSpeed);
+            // rb.velocity = new Vector3(horizontalInput, rb.velocity.y, verticalInput) * moveSpeed;
         }
         else
         {
