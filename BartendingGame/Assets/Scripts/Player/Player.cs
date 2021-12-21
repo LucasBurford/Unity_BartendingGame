@@ -56,16 +56,13 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag  == "DrinkStation")
+        if (other.gameObject.name == "LagerTap")
         {
-            if (other.gameObject.name == "LagerTap")
-            {
-                gameManager.HandleCollision("Lager");
-            }
-            else if (other.gameObject.name == "CiderTap")
-            {
-                gameManager.HandleCollision("Cider");
-            }
+            gameManager.HandleCollision("Lager");
+        }
+        else if (other.gameObject.name == "CiderTap")
+        {
+            gameManager.HandleCollision("Cider");
         }
     }
 

@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     public Sprite daiqImage, ofImage, margImage, pfmImage, lagerImage, ciderImage;
 
     // Ingredient images - store in memory
-    public Sprite ingRum, ingSugarSyrup, ingLimeJuice, ingWhiskey, ingVodka, ingPassionFruitLiq;
+    public Sprite ingRum, ingSugarSyrup, ingLimeJuice, ingWhiskey, ingVodka, ingTequila, ingCointreau, ingPassoa, ingBitters, ingPassionfruitPuree;
     #endregion
 
     #region Sliders
@@ -231,18 +231,21 @@ public class GameManager : MonoBehaviour
         if (!orderUp)
         {
             // Set orderUp to true
-            orderUp = true;
+            //orderUp = true;
+
+            // Play new order ding
+            FindObjectOfType<AudioManager>().Play("NewOrderDing");
 
             // Instantiate a new order object
             Order newOrder = FindObjectOfType<Order>();
 
-            // Generate random number to get a random order
-            int rand = Random.Range(5, 7);
+            // Generate random number between 1 and max amount of drinks to get a random order
+            int rand = Random.Range(1, drinksList.Count + 1);
 
             // Set order based on rand
             switch (rand)
             {
-                // Case 1: Daiquiri
+                // Case 1: Daiquiri 
                 case 1:
                     {
                         newOrder.orderName = "Daiquiri";
@@ -251,7 +254,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
 
-                // Case 2: Old Fasioned
+                // Case 2: Old Fasioned 
                 case 2:
                     {
                         newOrder.orderName = "Old Fasioned";
@@ -260,7 +263,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
 
-                // Case 3: Margarita
+                // Case 3: Margarita 
                 case 3:
                     {
                         newOrder.orderName = "Margarita";
@@ -269,7 +272,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
 
-                // Case 4: Passionfruit Martini
+                // Case 4: Passionfruit Martini 
                 case 4:
                     {
                         newOrder.orderName = "Passionfruit Martini";
@@ -305,12 +308,6 @@ public class GameManager : MonoBehaviour
 
             // Display the order and ingredients
             DisplayOrder(newOrder);
-            
-            // Only display ingredients if the drink to be created is a cocktail
-            if (drinkToBeCreated != Drinks.lager || drinkToBeCreated != Drinks.cider)
-            {
-                DisplayIngredientImages();
-            }
 
             // Reset timer
             timerSlider.value = timerMaxTime;
@@ -329,29 +326,72 @@ public class GameManager : MonoBehaviour
         {
             print("Order already up");
         }
+
+        DisplayIngredientImages();
     }
 
     private void DisplayOrder(Order pOrder)
     {
-        // Instantiate a new order prefab
-
         orderText.text = pOrder.orderName;
         orderImage.sprite = pOrder.orderImage;
     }
 
     private void DisplayIngredientImages()
     {
-        ingredientImages.gameObject.SetActive(true);
-
         // Display correct ingredients based on what the order is
         switch (drinkToBeCreated)
         {
-            // If current order is Daiquiri - rum, sugar syrup and lime juice
+            // If current order is Daiquiri - rum, sugar syrup and lime juice DONE
             case Drinks.daiquiri:
                 {
                     ingredient1Image.sprite = ingRum;
                     ingredient2Image.sprite = ingSugarSyrup;
                     ingredient3Image.sprite = ingLimeJuice;
+                    ingredientImages.gameObject.SetActive(true);
+                }
+                break;
+
+            // If current order is margarita - tequila, cointreau and lime juice 
+            case Drinks.margarita:
+                {
+                    ingredient1Image.sprite = ingTequila;
+                    ingredient2Image.sprite = ingCointreau;
+                    ingredient3Image.sprite = ingLimeJuice;
+                    ingredientImages.gameObject.SetActive(true);
+                }
+                break;
+
+            // If current order is old fasioned - whiskey, sugar syrup and bitters
+            case Drinks.oldFashioned:
+                {
+                    ingredient1Image.sprite = ingWhiskey;
+                    ingredient2Image.sprite = ingSugarSyrup;
+                    ingredient3Image.sprite = ingBitters;
+                    ingredientImages.gameObject.SetActive(true);
+                }
+                break;
+
+            // If current order is passionfruit martini - vodka, passoa and passionfruit puree
+            case Drinks.passionfruitMartini:
+                {
+                    ingredient1Image.sprite = ingVodka;
+                    ingredient2Image.sprite = ingPassoa;
+                    ingredient3Image.sprite = ingPassionfruitPuree;
+                    ingredientImages.gameObject.SetActive(true);
+                }
+                break;
+
+            // If current order is lager
+            case Drinks.lager:
+                {
+                    ingredientImages.gameObject.SetActive(false);
+                }
+                break;
+
+            // If current order is cider
+            case Drinks.cider:
+                {
+                    ingredientImages.gameObject.SetActive(false);
                 }
                 break;
         }
@@ -376,6 +416,7 @@ public class GameManager : MonoBehaviour
 
     public void DisplayPullDrinkText(string tapType)
     {
+        createDrinkText.gameObject.SetActive(true);
         createDrinkText.text = "Hold E to pull " + tapType;
     }
 
@@ -398,10 +439,7 @@ public class GameManager : MonoBehaviour
                 // Wait to generate a new order
                 CompleteDrink();
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.E) && canPullPint)
-        {
             if (drinkToBeCreated == Drinks.lager)
             {
                 // Play lager pouring audio
@@ -447,6 +485,8 @@ public class GameManager : MonoBehaviour
 
         // Remove shaker slider
         cocktailCompletionSlider.gameObject.SetActive(false);
+
+        createDrinkText.gameObject.SetActive(false);
 
         pintCompletion = 0;
         shakeScore = 0;
