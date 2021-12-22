@@ -33,7 +33,10 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(agent.pathStatus);
+        if (Vector3.Distance(transform.position, agent.destination) <= 1)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Set a destination for the NavMesh agent
