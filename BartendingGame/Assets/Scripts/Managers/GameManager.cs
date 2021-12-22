@@ -70,38 +70,10 @@ public class GameManager : MonoBehaviour
     public Slider cocktailCompletionSlider;
     #endregion
 
-    #region Ingredient and shaker game objects
-    [Header("Ingredient and shaker game objects")]
-
-    // Store ingredient game objects
-    public List<GameObject> ingredientGOList;
-    //public GameObject rumGO;
-    //public GameObject limeJuiceGO;
-    //public GameObject sugarSyrupGO;
-    //public GameObject tequilaGO;
-    //public GameObject vodkaGO;
-    //public GameObject cointreauGO;
-    //public GameObject passoaGO;
-    //public GameObject whiskeyGO;
-    //public GameObject bittersGO;
-    //public GameObject passionfruitPureeGO;
-    //public GameObject shakerGO;
-    #endregion
-
-    #region Ingredient and shaker locations
-    [Header("Ingredient and shaker locations")]
+    #region Ingredient and shaker GO list and location GO list
+    [Header("Ingredient and shaker GO list and location GO list")]
+    public List<GameObject> ingredientGOList;  
     public List<GameObject> ingredientLocList;
-    //public Transform loc1;
-    //public Transform loc2;
-    //public Transform loc3;
-    //public Transform loc4;
-    //public Transform loc5;
-    //public Transform loc6;
-    //public Transform loc7;
-    //public Transform loc8;
-    //public Transform loc9;
-    //public Transform loc10;
-    //public Transform loc11;
     #endregion
     #endregion
 
