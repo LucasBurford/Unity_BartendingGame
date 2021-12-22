@@ -420,9 +420,18 @@ public class GameManager : MonoBehaviour
         // Set ingredient and shaker to random location
         for (int i = 0; i < ingredientGOList.Count; i++)
         {
-            ingredientGOList[i].transform.position = ingredientLocList[Random.Range(1, ingredientLocList.Count)].transform.position;
-            print(ingredientGOList[i].transform.position);
+            // Generate random number between 1 and location list count
+            int rand = Random.Range(0, ingredientLocList.Count);
+
+            // Move the ingredient GO to location GO at generated location
+            ingredientGOList[i].transform.position = ingredientLocList[rand].transform.position;
+
+            // Remove this specific location GO
+            ingredientLocList.RemoveAt(rand);
         }
+
+        // Repopulate location GO list after loop has ended
+        AddIngredientLocationsToList();
     }
 
     private void DisplayOrder(Order pOrder)
