@@ -20,14 +20,20 @@ public class NPC : MonoBehaviour
         // Instantiate list
         goalList = new List<GameObject>();
 
+        // Get NavMesh agent
+        agent = gameObject.GetComponent<NavMeshAgent>();
+
         // Get all NPC goals
         PopulateGoalList();
+
+        // On spawn, get a new destination
+        SetNewDestination();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        print(agent.pathStatus);
     }
 
     // Set a destination for the NavMesh agent
@@ -46,5 +52,6 @@ public class NPC : MonoBehaviour
         goalList.Add(GameObject.Find("NPCGoal1"));
         goalList.Add(GameObject.Find("NPCGoal2"));
         goalList.Add(GameObject.Find("NPCGoal3"));
+        goalList.Add(GameObject.Find("NPCGoal4"));
     }
 }

@@ -6,20 +6,36 @@ public class NPCManager : MonoBehaviour
 {
     public GameObject npcPrefab;
 
-    public Transform spawnPoint;
+    public List<GameObject> spawnPointList;
+
+    public int randSpawnChance;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        spawnPointList = new List<GameObject>();
+        PopulateSpawnPointList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, 100) == 1)
+        if (Random.Range(0, randSpawnChance) == 1)
         {
-            Instantiate(npcPrefab, spawnPoint);
+            
         }
+    }
+
+    public void SpawnNPC()
+    {
+        Instantiate(npcPrefab, spawnPointList[Random.Range(0, spawnPointList.Count)].transform);
+    }
+
+    private void PopulateSpawnPointList()
+    {
+        spawnPointList.Add(GameObject.Find("NPCSpawnPoint1"));
+        spawnPointList.Add(GameObject.Find("NPCSpawnPoint2"));
+        spawnPointList.Add(GameObject.Find("NPCSpawnPoint3"));
+        spawnPointList.Add(GameObject.Find("NPCSpawnPoint4"));
     }
 }
