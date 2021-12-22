@@ -69,13 +69,47 @@ public class GameManager : MonoBehaviour
     // Reference to cocktail completion slider
     public Slider cocktailCompletionSlider;
     #endregion
+
+    #region Ingredient and shaker game objects
+    [Header("Ingredient and shaker game objects")]
+
+    // Store ingredient game objects
+    public List<GameObject> ingredientGOList;
+    //public GameObject rumGO;
+    //public GameObject limeJuiceGO;
+    //public GameObject sugarSyrupGO;
+    //public GameObject tequilaGO;
+    //public GameObject vodkaGO;
+    //public GameObject cointreauGO;
+    //public GameObject passoaGO;
+    //public GameObject whiskeyGO;
+    //public GameObject bittersGO;
+    //public GameObject passionfruitPureeGO;
+    //public GameObject shakerGO;
+    #endregion
+
+    #region Ingredient and shaker locations
+    [Header("Ingredient and shaker locations")]
+    public List<GameObject> ingredientLocList;
+    //public Transform loc1;
+    //public Transform loc2;
+    //public Transform loc3;
+    //public Transform loc4;
+    //public Transform loc5;
+    //public Transform loc6;
+    //public Transform loc7;
+    //public Transform loc8;
+    //public Transform loc9;
+    //public Transform loc10;
+    //public Transform loc11;
+    #endregion
     #endregion
 
     #region Gameplay and spec
+    [Header("Floats and ints")]
     [Header("Gameplay and spec")]
 
     #region Floats and ints
-    [Header("Floats and ints")]
 
     // Drink completion rate
     [SerializeField]
@@ -206,8 +240,14 @@ public class GameManager : MonoBehaviour
         orderList = new List<Order>();
         drinksList = new List<string>();
         inventory = new List<Ingredient>();
+        ingredientGOList = new List<GameObject>();
+        ingredientLocList = new List<GameObject>();
 
         drinkToBeCreated = Drinks.none;
+
+        // Add ingredient game objects and locations to lists
+        AddIngredientsToList();
+        AddIngredientLocationsToList();
 
         // Add drinks to list
         AddDrinks();
@@ -274,7 +314,9 @@ public class GameManager : MonoBehaviour
         if (!orderUp)
         {
             // Set orderUp to true
-            orderUp = true;
+            // orderUp = true;
+
+            RandomiseLocations();
 
             // Play new order ding
             FindObjectOfType<AudioManager>().Play("NewOrderDing");
@@ -371,6 +413,16 @@ public class GameManager : MonoBehaviour
         }
 
         DisplayIngredientImages();
+    }
+
+    private void RandomiseLocations()
+    {
+        // Set ingredient and shaker to random location
+        for (int i = 0; i < ingredientGOList.Count; i++)
+        {
+            ingredientGOList[i].transform.position = ingredientLocList[Random.Range(1, ingredientLocList.Count)].transform.position;
+            print(ingredientGOList[i].transform.position);
+        }
     }
 
     private void DisplayOrder(Order pOrder)
@@ -756,6 +808,36 @@ public class GameManager : MonoBehaviour
     public void LeftCollider()
     {
         createDrinkText.text = "";
+    }
+
+    private void AddIngredientsToList()
+    {
+        ingredientGOList.Add(GameObject.Find("Rum"));
+        ingredientGOList.Add(GameObject.Find("SugarSyrup"));
+        ingredientGOList.Add(GameObject.Find("LimeJuice"));
+        ingredientGOList.Add(GameObject.Find("Whiskey"));
+        ingredientGOList.Add(GameObject.Find("Passoa"));
+        ingredientGOList.Add(GameObject.Find("PassionfruitPuree"));
+        ingredientGOList.Add(GameObject.Find("Bitters"));
+        ingredientGOList.Add(GameObject.Find("Tequila"));
+        ingredientGOList.Add(GameObject.Find("Cointreau"));
+        ingredientGOList.Add(GameObject.Find("Vodka"));
+        ingredientGOList.Add(GameObject.Find("CocktailShaker"));
+    }
+
+    private void AddIngredientLocationsToList()
+    {
+        ingredientLocList.Add(GameObject.Find("Loc1"));
+        ingredientLocList.Add(GameObject.Find("Loc2"));
+        ingredientLocList.Add(GameObject.Find("Loc3"));
+        ingredientLocList.Add(GameObject.Find("Loc4"));
+        ingredientLocList.Add(GameObject.Find("Loc5"));
+        ingredientLocList.Add(GameObject.Find("Loc6"));
+        ingredientLocList.Add(GameObject.Find("Loc7"));
+        ingredientLocList.Add(GameObject.Find("Loc8"));
+        ingredientLocList.Add(GameObject.Find("Loc9"));
+        ingredientLocList.Add(GameObject.Find("Loc10"));
+        ingredientLocList.Add(GameObject.Find("Loc11"));
     }
 
     private void AddDrinks()
