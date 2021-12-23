@@ -8,6 +8,9 @@ public class NPC : MonoBehaviour
     // Reference to NavMesh agent
     public NavMeshAgent agent;
 
+    // Refernce to NPC manager
+    public NPCManager npcManager;
+
     // List of goals
     public List<GameObject> goalList;
 
@@ -23,6 +26,9 @@ public class NPC : MonoBehaviour
         // Get NavMesh agent
         agent = gameObject.GetComponent<NavMeshAgent>();
 
+        // Get NPC Manager
+        npcManager = FindObjectOfType<NPCManager>();
+
         // Get all NPC goals
         PopulateGoalList();
 
@@ -33,8 +39,13 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If agent reaches goal
         if (Vector3.Distance(transform.position, agent.destination) <= 1)
         {
+            // Wait around for a little while
+
+            // Then destroy - decrement numberOfAgents active so more can spawn
+            npcManager.numberOfAgentsActive--;
             Destroy(gameObject);
         }
     }
@@ -42,11 +53,8 @@ public class NPC : MonoBehaviour
     // Set a destination for the NavMesh agent
     public void SetNewDestination()
     {
-        // Generate a random number
-        int rand = Random.Range(0, goalList.Count);
-
         // Set the destination to the generated one
-        agent.SetDestination(goalList[rand].transform.position);
+        agent.SetDestination(goalList[Random.Range(0, goalList.Count)].transform.position);
     }
 
     // Find NPG goal GOs and store them

@@ -10,6 +10,9 @@ public class NPCManager : MonoBehaviour
 
     public int randSpawnChance;
 
+    public int numberOfAgentsActive;
+    public int maxAgentsActive;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,15 +23,16 @@ public class NPCManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, randSpawnChance) == 1)
+        if (Random.Range(0, randSpawnChance) == 1 && numberOfAgentsActive < maxAgentsActive)
         {
-            
+            SpawnNPC();
         }
     }
 
     public void SpawnNPC()
     {
         Instantiate(npcPrefab, spawnPointList[Random.Range(0, spawnPointList.Count)].transform);
+        numberOfAgentsActive++;
     }
 
     private void PopulateSpawnPointList()
