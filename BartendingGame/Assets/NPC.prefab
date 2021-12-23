@@ -106,13 +106,12 @@ GameObject:
   - component: {fileID: 832065414102509285}
   - component: {fileID: 832065414102509290}
   - component: {fileID: 832065414102509291}
-  - component: {fileID: 832065414102509289}
   - component: {fileID: 832065414102509288}
   - component: {fileID: 832065414102509284}
   - component: {fileID: 1512388575457046627}
   m_Layer: 9
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 832065414102509294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.024696, y: 0, z: 0}
-  m_LocalScale: {x: 0.80709, y: 1.6988207, z: 0.8152}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 832065413695650379}
   m_Father: {fileID: 0}
@@ -181,22 +180,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &832065414102509289
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832065414102509294}
-  serializedVersion: 2
-  m_Mass: 3
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 124
-  m_CollisionDetection: 1
 --- !u!65 &832065414102509288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -223,6 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
+  npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0.012
 --- !u!195 &1512388575457046627

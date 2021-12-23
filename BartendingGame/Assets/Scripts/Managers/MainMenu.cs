@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Settings", LoadSceneMode.Single);
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits", LoadSceneMode.Single);
+    }
+
     public void Quit()
     {
         // Quit the game

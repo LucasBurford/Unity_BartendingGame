@@ -756,11 +756,7 @@ public class GameManager : MonoBehaviour
 
         if (collision == "CocktailShaker")
         {
-            if (!allIngredientsCollected)
-            {
-                print("Collect all ingredients first!");
-            }
-            else
+            if (allIngredientsCollected)
             {
                 shakerCollected = true;
             }

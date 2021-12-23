@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class NPCManager : MonoBehaviour
 {
-    public GameObject npcPrefab;
-
     public List<GameObject> spawnPointList;
+
+    public GameObject[] prefabs;
 
     public int randSpawnChance;
 
@@ -17,6 +18,7 @@ public class NPCManager : MonoBehaviour
     void Start()
     {
         spawnPointList = new List<GameObject>();
+        prefabs = Resources.LoadAll<GameObject>("Prefabs");
         PopulateSpawnPointList();
     }
 
@@ -31,7 +33,7 @@ public class NPCManager : MonoBehaviour
 
     public void SpawnNPC()
     {
-        Instantiate(npcPrefab, spawnPointList[Random.Range(0, spawnPointList.Count)].transform);
+        Instantiate(prefabs[Random.Range(0, prefabs.Length)], spawnPointList[Random.Range(0, spawnPointList.Count)].transform);
         numberOfAgentsActive++;
     }
 
