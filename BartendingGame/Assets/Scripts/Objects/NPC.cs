@@ -64,5 +64,6 @@ public class NPC : MonoBehaviour
         goalList.Add(GameObject.Find("NPCGoal2"));
         goalList.Add(GameObject.Find("NPCGoal3"));
         goalList.Add(GameObject.Find("NPCGoal4"));
+        goalList.Add(GameObject.Find("NPCGoal5"));
     }
 }

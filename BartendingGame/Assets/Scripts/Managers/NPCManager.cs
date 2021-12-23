@@ -41,5 +41,6 @@ public class NPCManager : MonoBehaviour
         spawnPointList.Add(GameObject.Find("NPCSpawnPoint2"));
         spawnPointList.Add(GameObject.Find("NPCSpawnPoint3"));
         spawnPointList.Add(GameObject.Find("NPCSpawnPoint4"));
+        spawnPointList.Add(GameObject.Find("NPCSpawnPoint5"));
     }
 }
