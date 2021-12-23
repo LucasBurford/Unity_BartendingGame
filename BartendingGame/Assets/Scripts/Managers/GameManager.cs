@@ -133,6 +133,10 @@ public class GameManager : MonoBehaviour
     // Bool to determine if player is shaking cocktail
     [SerializeField]
     private bool shaking;
+
+    // Bool to determine if extra ingredient locations have been added
+    [SerializeField]
+    private bool extraIngLocationsAdded;
     #endregion
 
     #region Misc fields
@@ -274,6 +278,12 @@ public class GameManager : MonoBehaviour
             ShakeCocktail();
         }
 
+        if (drinksCompleted == 10 && !extraIngLocationsAdded)
+        {
+            extraIngLocationsAdded = true;
+            AddExtraIngredientLocationsToList();
+        }
+
         if (TEST)
         {
             ShakeCocktail();
@@ -367,7 +377,7 @@ public class GameManager : MonoBehaviour
             DisplayOrder(newOrder);
 
             // Reset timer - after each completion reduce by number of drinks completed to add tension
-            timerSlider.value = timerMaxTime - drinksCompleted;
+            timerSlider.value = timerSlider.maxValue - drinksCompleted;
 
             // Only start timer if it hasn't already started
             if (!timerStarted)
@@ -492,10 +502,13 @@ public class GameManager : MonoBehaviour
         createDrinkText.text = "Hold E to pull " + tapType;
     }
 
-    public void PullDrink()
+    public void PullPint()
     {
         if (Input.GetKey(KeyCode.E) && canPullPint)
         {
+            // Show pint completion slider
+            pintCompletionSlider.gameObject.SetActive(true);
+
             // Fill drinkCompletion
             pintCompletion += drinkCompletionRate;
             // Keep drink completion slider updated to drink completion
@@ -557,6 +570,7 @@ public class GameManager : MonoBehaviour
 
         drinksCompleted++;
 
+        pintCompletionSlider.gameObject.SetActive(false);
         cocktailCompletionSlider.gameObject.SetActive(false);
 
         createDrinkText.gameObject.SetActive(false);
@@ -602,6 +616,13 @@ public class GameManager : MonoBehaviour
         allCollectedText.gameObject.SetActive(false);
     }
 
+    IEnumerator WaitToRemoveExtraLocsAddedText()
+    {
+        yield return new WaitForSeconds(5);
+
+        drinkCompleteText.gameObject.SetActive(false);
+    }
+
     #endregion
 
     #region Misc Methods
@@ -614,14 +635,14 @@ public class GameManager : MonoBehaviour
         {
             // Display pull Lager text
             DisplayPullDrinkText("Lager");
-            PullDrink();
+            PullPint();
         }
         // If drink to be created is cider and player is at cider tap
         if (drinkToBeCreated == Drinks.cider && collision == "Cider")
         {
             // Display pull cider text
             DisplayPullDrinkText("Cider");
-            PullDrink();
+            PullPint();
         }
         #endregion
 
@@ -819,6 +840,25 @@ public class GameManager : MonoBehaviour
         ingredientLocList.Add(GameObject.Find("Loc9"));
         ingredientLocList.Add(GameObject.Find("Loc10"));
         ingredientLocList.Add(GameObject.Find("Loc11"));
+    }
+
+    private void AddExtraIngredientLocationsToList()
+    {
+        ingredientLocList.Add(GameObject.Find("Loc12"));
+        ingredientLocList.Add(GameObject.Find("Loc13"));
+        ingredientLocList.Add(GameObject.Find("Loc14"));
+        ingredientLocList.Add(GameObject.Find("Loc15"));
+        ingredientLocList.Add(GameObject.Find("Loc16"));
+        ingredientLocList.Add(GameObject.Find("Loc17"));
+        ingredientLocList.Add(GameObject.Find("Loc18"));
+        ingredientLocList.Add(GameObject.Find("Loc19"));
+        ingredientLocList.Add(GameObject.Find("Loc20"));
+
+        timerSlider.maxValue = 75;
+
+        drinkCompleteText.gameObject.SetActive(true);
+        drinkCompleteText.text = "More ingredient locations added \n Time extended!";
+        StartCoroutine(WaitToRemoveExtraLocsAddedText());
     }
 
     private void AddDrinks()
