@@ -112,6 +112,10 @@ public class GameManager : MonoBehaviour
 
     #region Floats and ints
 
+    // Time left to complete order
+    [SerializeField]
+    private float timeLeft;
+
     // Drink completion rate
     [SerializeField]
     private float drinkCompletionRate;
@@ -173,6 +177,7 @@ public class GameManager : MonoBehaviour
     public Difficulty difficulty;
     public enum Difficulty
     {
+        easy,
         normal,
         hard
     }
@@ -253,7 +258,19 @@ public class GameManager : MonoBehaviour
         ingredientGOList = new List<GameObject>();
         ingredientLocList = new List<GameObject>();
 
-        difficulty = Difficulty.normal;
+        difficulty = (Difficulty)FindObjectOfType<DifficultyManager>().GetDifficulty();
+
+        if (difficulty == Difficulty.easy)
+        {
+            timerMaxTime = 90;
+        }
+        if (difficulty == Difficulty.normal || difficulty == Difficulty.hard)
+        {
+            timerMaxTime = 45;
+        }
+
+        timeLeft = timerMaxTime;
+
         drinkToBeCreated = Drinks.none;
 
         // Add ingredient game objects and locations to lists
@@ -331,10 +348,6 @@ public class GameManager : MonoBehaviour
         }
 
         if (drinksCompleted == 10 && !extraIngLocationsAdded)
-        {
-            extraIngLocationsAdded = true;
-            AddExtraIngredientLocationsToList();
-        }
 
         CheckDifficulty();
         CheckTimeLeft();
@@ -383,7 +396,7 @@ public class GameManager : MonoBehaviour
         if (!orderUp)
         {
             // Set orderUp to true
-            // orderUp = true;
+            orderUp = true;
 
             RandomiseLocations();
 
@@ -725,11 +738,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void AddIngredientToGOUI()
-    {
-
-    }
-
     public void HandleCollision(string collision)
     {
         #region Taps
@@ -993,6 +1001,7 @@ public class GameManager : MonoBehaviour
 
     private void StepTimer()
     {
+        timeLeft -= 1;
         timerSlider.value -= 1;
     }
 

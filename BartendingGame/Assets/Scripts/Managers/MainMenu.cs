@@ -1,14 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public DifficultyManager difficultyManager;
+
+    public Button easy, normal, hard;
+
     public void Play()
     {
-        // Load the main game scene
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        // Reveal difficulty buttons
+        RevealButtons();
+    }
+
+    private void RevealButtons()
+    {
+        easy.gameObject.SetActive(true);
+        normal.gameObject.SetActive(true);
+        hard.gameObject.SetActive(true);
+    }
+
+    public void LoadGame(string difficulty)
+    {
+        switch (difficulty)
+        {
+            case "Easy":
+                {
+                    difficultyManager.difficulty = DifficultyManager.Difficulty.easy;
+                    SceneManager.LoadScene("SampleScene");
+                }
+                break;
+
+            case "Normal":
+                {
+                    difficultyManager.difficulty = DifficultyManager.Difficulty.normal;
+                    SceneManager.LoadScene("SampleScene");
+                }
+                break;
+
+            case "Hard":
+                {
+                    difficultyManager.difficulty = DifficultyManager.Difficulty.hard;
+                    SceneManager.LoadScene("SampleScene");
+                }
+                break;
+        }
     }
 
     public void Settings()

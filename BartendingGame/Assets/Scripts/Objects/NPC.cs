@@ -23,6 +23,8 @@ public class NPC : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+
         // Instantiate list
         goalList = new List<GameObject>();
 
@@ -45,8 +47,6 @@ public class NPC : MonoBehaviour
         // If agent reaches goal
         if (Vector3.Distance(transform.position, agent.destination) <= 1)
         {
-            // Wait around for a little while
-
             // Then destroy - decrement numberOfAgents active so more can spawn
             npcManager.numberOfAgentsActive--;
             Destroy(gameObject);
