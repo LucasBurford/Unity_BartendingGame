@@ -397,6 +397,36 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.47100002, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &51688738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51688739}
+  m_Layer: 0
+  m_Name: UIGO3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &51688739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51688738}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.3, y: 5.59, z: 0}
+  m_LocalScale: {x: 1.8008, y: 1.8008, z: 1.8008}
+  m_Children: []
+  m_Father: {fileID: 1869930006}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &52961211
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +991,11 @@ Transform:
   m_Father: {fileID: 2081591293}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &124739950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 1072618913}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &124739952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1685298094433361698, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
@@ -5030,6 +5065,20 @@ MonoBehaviour:
   cocktailCompletionSlider: {fileID: 1931176263}
   ingredientGOList: []
   ingredientLocList: []
+  rumGO: {fileID: 124739950}
+  sugarSyrupGO: {fileID: 5323400211061877711}
+  limeJuiceGO: {fileID: 923209138}
+  whiskeyGO: {fileID: 1747832713}
+  passoaGO: {fileID: 724691636}
+  passionfruitPureeGO: {fileID: 1265250689}
+  bittersGO: {fileID: 556950859}
+  tequilaGO: {fileID: 1427345936}
+  cointreauGO: {fileID: 687818298}
+  vodkaGO: {fileID: 1841860887}
+  shakerGO: {fileID: 256547423}
+  uiGO1: {fileID: 0}
+  uiGO2: {fileID: 0}
+  uiGO3: {fileID: 0}
   drinkCompletionRate: 0.5
   pintCompletion: 0
   timerMaxTime: 45
@@ -5904,6 +5953,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.47100002, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &687818298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 713155244}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &693102154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6260,6 +6314,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.41500002, z: -0.008}
   m_TimeToStationary: 0.5
+--- !u!1 &724691636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 528938615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &729528982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10105,6 +10164,36 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &1142069025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1142069026}
+  m_Layer: 0
+  m_Name: UIGO2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1142069026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142069025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.2, y: 5.59, z: 0}
+  m_LocalScale: {x: 1.8008, y: 1.8008, z: 1.8008}
+  m_Children: []
+  m_Father: {fileID: 1869930006}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154288107
 GameObject:
   m_ObjectHideFlags: 0
@@ -12600,6 +12689,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 4f12aeb58b5d6404e813007e40832e00, type: 3}
   m_PrefabInstance: {fileID: 1427281040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1427345936 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 1342041962}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1437232526
 PrefabInstance:
@@ -15561,6 +15655,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1b743ccd38691d542850f73f43bef3ef, type: 3}
   m_PrefabInstance: {fileID: 1739500540}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1747832713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 250453913}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1767599772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16631,6 +16730,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.41500002, z: -0.008}
   m_TimeToStationary: 0.5
+--- !u!1 &1841860887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1685298094432862978, guid: d136ed307a77ef848b4f39b801ee15af, type: 3}
+  m_PrefabInstance: {fileID: 553642450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1844643922
 GameObject:
   m_ObjectHideFlags: 0
@@ -16746,6 +16850,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1338620513}
+  - {fileID: 2016111222}
+  - {fileID: 1142069026}
+  - {fileID: 51688739}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17695,6 +17802,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5957385384851105203, guid: 56c8dae64d3bec446853710a45df2cf6, type: 3}
   m_PrefabInstance: {fileID: 2014122788}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2016111221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2016111222}
+  m_Layer: 0
+  m_Name: UIGO1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2016111222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016111221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -18.1, y: 5.59, z: 0}
+  m_LocalScale: {x: 1.8008, y: 1.8008, z: 1.8008}
+  m_Children: []
+  m_Father: {fileID: 1869930006}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2018516705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2972500299756645501, guid: 09c5e99668f3fd1458b27251bf645589, type: 3}

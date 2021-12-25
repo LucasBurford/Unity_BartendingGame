@@ -79,6 +79,27 @@ public class GameManager : MonoBehaviour
     public List<GameObject> ingredientGOList;  
     public List<GameObject> ingredientLocList;
     #endregion
+
+    #region Ingredients and UI GOs
+    // Hold actual ingredient GOs
+    public GameObject rumGO;
+    public GameObject sugarSyrupGO;
+    public GameObject limeJuiceGO;
+    public GameObject whiskeyGO;
+    public GameObject passoaGO;
+    public GameObject passionfruitPureeGO;
+    public GameObject bittersGO;
+    public GameObject tequilaGO;
+    public GameObject cointreauGO;
+    public GameObject vodkaGO;
+    public GameObject shakerGO;
+
+    // Hold ingredient GOs for UI
+    public GameObject uiGO1;
+    public GameObject uiGO2;
+    public GameObject uiGO3;
+
+    #endregion
     #endregion
 
     #region Gameplay and spec
@@ -239,6 +260,11 @@ public class GameManager : MonoBehaviour
         // Check if all ingredients are collected based on what drink needs to be made
         if (drinkToBeCreated == Drinks.daiquiri)
         {
+            // Populate ingredient Ui
+            uiGO1 = rumGO;
+            uiGO2 = sugarSyrupGO;
+            uiGO3 = limeJuiceGO;
+
             if (rumCollected == 1 && dSugarSyrupCollected == 1 && dLimeJuiceCollected == 1 && !hasDisplayed)
             {
                 DisplayAllIngredientsCollected();
@@ -249,6 +275,10 @@ public class GameManager : MonoBehaviour
 
         if (drinkToBeCreated == Drinks.margarita)
         {
+            uiGO1 = tequilaGO;
+            uiGO1 = cointreauGO;
+            uiGO3 = limeJuiceGO;
+
             if (tequilaCollected == 1 && cointreauCollected == 1 && mLimeJuiceCollected == 1 &&!hasDisplayed)
             {
                 DisplayAllIngredientsCollected();
@@ -259,6 +289,10 @@ public class GameManager : MonoBehaviour
 
         if (drinkToBeCreated == Drinks.oldFashioned)
         {
+            uiGO1 = whiskeyGO;
+            uiGO1 = bittersGO;
+            uiGO1 = sugarSyrupGO;
+
             if (whiskeyCollected == 1 && ofSugarSyrupCollected == 1 && bittersCollected == 1 && !hasDisplayed)
             {
                 DisplayAllIngredientsCollected();
@@ -269,6 +303,10 @@ public class GameManager : MonoBehaviour
 
         if (drinkToBeCreated == Drinks.passionfruitMartini)
         {
+            uiGO1 = vodkaGO;
+            uiGO1 = passoaGO;
+            uiGO1 = passionfruitPureeGO;
+
             if (vodkaCollected == 1 && passoaCollected == 1 && passionfruitPureeCollected == 1 && !hasDisplayed)
             {
                 DisplayAllIngredientsCollected();
@@ -632,6 +670,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Misc Methods
+    private void AddIngredientToGOUI()
+    {
+
+    }
+
     public void HandleCollision(string collision)
     {
         #region Taps
