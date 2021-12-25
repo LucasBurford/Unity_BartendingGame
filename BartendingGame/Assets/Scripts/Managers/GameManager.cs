@@ -110,15 +110,6 @@ public class GameManager : MonoBehaviour
     [Header("Floats and ints")]
     [Header("Gameplay and spec")]
 
-    #region Difficulty
-    public Difficulty difficulty;
-    public enum Difficulty
-    {
-        normal,
-        hard
-    }
-    #endregion
-
     #region Floats and ints
 
     // Drink completion rate
@@ -175,6 +166,16 @@ public class GameManager : MonoBehaviour
     // Bool to determine if extra ingredient locations have been added
     [SerializeField]
     private bool extraIngLocationsAdded;
+    #endregion
+
+    #region Difficulty
+    [Header("Difficulty")]
+    public Difficulty difficulty;
+    public enum Difficulty
+    {
+        normal,
+        hard
+    }
     #endregion
 
     #region Misc fields
@@ -237,11 +238,6 @@ public class GameManager : MonoBehaviour
     public int passionfruitPureeCollected;
     #endregion
 
-    #endregion
-
-    #region TESTING - REMOVE
-    [Header("TESTING")]
-    public bool TEST = true;
     #endregion
 
     #endregion
@@ -339,6 +335,7 @@ public class GameManager : MonoBehaviour
             extraIngLocationsAdded = true;
             AddExtraIngredientLocationsToList();
         }
+
         CheckDifficulty();
         CheckTimeLeft();
     }

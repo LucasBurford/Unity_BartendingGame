@@ -103,11 +103,11 @@ MonoBehaviour:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
-    overrideState: 0
-    value: 180
+    overrideState: 1
+    value: 0
   saturation:
     overrideState: 1
-    value: 50
+    value: 40
   brightness:
     overrideState: 0
     value: 0

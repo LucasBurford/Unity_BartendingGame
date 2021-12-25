@@ -5093,6 +5093,7 @@ MonoBehaviour:
   timerStarted: 0
   shaking: 0
   extraIngLocationsAdded: 0
+  difficulty: 0
   inventory: []
   orderList: []
   drinksList: []
@@ -5109,7 +5110,6 @@ MonoBehaviour:
   vodkaCollected: 0
   passoaCollected: 0
   passionfruitPureeCollected: 0
-  TEST: 0
 --- !u!4 &612963962
 Transform:
   m_ObjectHideFlags: 0
@@ -6387,6 +6387,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CocktailShaker
       objectReference: {fileID: 0}
+    - target: {fileID: 3413042189024464041, guid: 3692e235c3367124fafe843116671787, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 005e406e444deba4cbf162198a6a9efa, type: 2}
+    - target: {fileID: 6908026280110130484, guid: 3692e235c3367124fafe843116671787, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 005e406e444deba4cbf162198a6a9efa, type: 2}
+    - target: {fileID: 7641455970767286069, guid: 3692e235c3367124fafe843116671787, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 005e406e444deba4cbf162198a6a9efa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3692e235c3367124fafe843116671787, type: 3}
 --- !u!1001 &739419922
@@ -18157,6 +18169,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.031426717
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 6ba33c305841faf43974bbdb2e21b51d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31d99f1af299db1459d4d7ac95dfa2ae, type: 2}
     - target: {fileID: 919132149155446097, guid: 6ba33c305841faf43974bbdb2e21b51d, type: 3}
       propertyPath: m_Name
       value: LagerTap
@@ -18975,6 +18991,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.031426717
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 6ba33c305841faf43974bbdb2e21b51d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31d99f1af299db1459d4d7ac95dfa2ae, type: 2}
     - target: {fileID: 919132149155446097, guid: 6ba33c305841faf43974bbdb2e21b51d, type: 3}
       propertyPath: m_Name
       value: CiderTap
