@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1215617681672443303}
   - component: {fileID: -7417359886770096205}
   - component: {fileID: 3639220619228124317}
-  - component: {fileID: 3398038593910868180}
+  - component: {fileID: -384231814205143497}
   m_Layer: 0
   m_Name: Santa
   m_TagString: NPC
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1216435090000238643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3867740522675993933}
   m_Father: {fileID: 0}
@@ -72,8 +72,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &3398038593910868180
-CapsuleCollider:
+--- !u!65 &-384231814205143497
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,9 +82,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1502788601879198559
 GameObject:

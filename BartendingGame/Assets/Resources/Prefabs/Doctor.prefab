@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 5107485099718359295}
   - component: {fileID: -408288700859126925}
   - component: {fileID: -60997070430309694}
-  - component: {fileID: 565739915945899203}
+  - component: {fileID: 8246734384393862637}
   m_Layer: 0
   m_Name: Doctor
   m_TagString: NPC
@@ -610,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 3300799546944532708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 686773434032176835}
   m_Father: {fileID: 0}
@@ -654,8 +654,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &565739915945899203
-CapsuleCollider:
+--- !u!65 &8246734384393862637
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -664,9 +664,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3578275715817459665
 GameObject:

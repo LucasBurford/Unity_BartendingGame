@@ -2049,7 +2049,7 @@ GameObject:
   - component: {fileID: 8352726367512923069}
   - component: {fileID: 5755174942960257551}
   - component: {fileID: -5250534928653141641}
-  - component: {fileID: -6257256925813786342}
+  - component: {fileID: -5071170822386596293}
   m_Layer: 0
   m_Name: CricketFielder
   m_TagString: NPC
@@ -2064,14 +2064,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8346789638012683817}
-  m_LocalRotation: {x: 0, y: 0.7518398, z: 0, w: 0.65934587}
-  m_LocalPosition: {x: -6.22, y: 0, z: 9.86}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6239909032117461847}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 97.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &5755174942960257551
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2110,8 +2110,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &-6257256925813786342
-CapsuleCollider:
+--- !u!65 &-5071170822386596293
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2120,9 +2120,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9139220120825720532
 GameObject:

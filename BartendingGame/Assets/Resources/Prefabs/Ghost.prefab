@@ -721,7 +721,7 @@ GameObject:
   - component: {fileID: 5654197339433934524}
   - component: {fileID: 7147953424565297139}
   - component: {fileID: -5572393836917680921}
-  - component: {fileID: 6515617965805911134}
+  - component: {fileID: 1442913516816139084}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: NPC
@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 5640941148175782696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7711845715740358230}
   m_Father: {fileID: 0}
@@ -782,8 +782,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &6515617965805911134
-CapsuleCollider:
+--- !u!65 &1442913516816139084
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -792,9 +792,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6991876484919181834
 GameObject:

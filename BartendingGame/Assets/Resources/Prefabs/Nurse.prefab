@@ -1020,7 +1020,7 @@ GameObject:
   - component: {fileID: 177407082141715887}
   - component: {fileID: -3281081878418600515}
   - component: {fileID: 5260259734817648165}
-  - component: {fileID: -1006802942665481525}
+  - component: {fileID: 4139774079434653266}
   m_Layer: 0
   m_Name: Nurse
   m_TagString: NPC
@@ -1037,7 +1037,7 @@ Transform:
   m_GameObject: {fileID: 2618188073631541129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 153113464759344507}
   m_Father: {fileID: 0}
@@ -1081,8 +1081,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &-1006802942665481525
-CapsuleCollider:
+--- !u!65 &4139774079434653266
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1091,9 +1091,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2629889911763255196
 GameObject:

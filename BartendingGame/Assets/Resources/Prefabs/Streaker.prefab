@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 1067794905582885678}
   - component: {fileID: 6959770406388481187}
   - component: {fileID: -3057936841924414126}
-  - component: {fileID: 2671042370257607809}
+  - component: {fileID: 1034175846257866033}
   m_Layer: 0
   m_Name: Streaker
   m_TagString: NPC
@@ -163,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 1075948391855331002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3144591826724598724}
   m_Father: {fileID: 0}
@@ -207,8 +207,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &2671042370257607809
-CapsuleCollider:
+--- !u!65 &1034175846257866033
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -217,9 +217,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2818223673294155358
 GameObject:

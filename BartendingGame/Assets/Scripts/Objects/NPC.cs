@@ -17,6 +17,8 @@ public class NPC : MonoBehaviour
     // Move speed
     public float moveSpeed;
 
+    public float TESTY;
+
     // Start is called before the first frame update
     private void Start()
     {

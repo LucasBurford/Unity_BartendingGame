@@ -1957,7 +1957,7 @@ GameObject:
   - component: {fileID: 6631964419132099031}
   - component: {fileID: 2783958053958372028}
   - component: {fileID: -6173856442682383489}
-  - component: {fileID: 8759016978895875064}
+  - component: {fileID: -4909619647066409213}
   m_Layer: 0
   m_Name: Cop
   m_TagString: NPC
@@ -1974,7 +1974,7 @@ Transform:
   m_GameObject: {fileID: 6644603938449114179}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8753657183144468797}
   m_Father: {fileID: 0}
@@ -2018,8 +2018,9 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &8759016978895875064
-CapsuleCollider:
+  TESTY: 0
+--- !u!65 &-4909619647066409213
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2028,9 +2029,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6869289770107773416
 GameObject:

@@ -1360,7 +1360,7 @@ GameObject:
   - component: {fileID: 7423567203501390115}
   - component: {fileID: -1412654391893550368}
   - component: {fileID: -4200578079744351110}
-  - component: {fileID: 5564190755358727350}
+  - component: {fileID: -3777712364402664891}
   m_Layer: 0
   m_Name: Robber
   m_TagString: NPC
@@ -1377,7 +1377,7 @@ Transform:
   m_GameObject: {fileID: 7438494788967298231}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4789449964865049033}
   m_Father: {fileID: 0}
@@ -1421,8 +1421,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &5564190755358727350
-CapsuleCollider:
+--- !u!65 &-3777712364402664891
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1431,9 +1431,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7654464796460211274
 GameObject:

@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 2604409605281228788}
   - component: {fileID: -4635117887494195058}
   - component: {fileID: -5034285975187471841}
-  - component: {fileID: 8684004846054391323}
+  - component: {fileID: -1072784085496848800}
   m_Layer: 0
   m_Name: Devil
   m_TagString: NPC
@@ -1123,7 +1123,7 @@ Transform:
   m_GameObject: {fileID: 2601849333618502240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 96542518079803166}
   m_Father: {fileID: 0}
@@ -1167,8 +1167,8 @@ MonoBehaviour:
   npcManager: {fileID: 0}
   goalList: []
   moveSpeed: 0
---- !u!136 &8684004846054391323
-CapsuleCollider:
+--- !u!65 &-1072784085496848800
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1177,9 +1177,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2962076198817612445
 GameObject:
