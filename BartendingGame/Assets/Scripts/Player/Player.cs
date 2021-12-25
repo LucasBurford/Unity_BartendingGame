@@ -64,10 +64,7 @@ public class Player : MonoBehaviour
         {
             gameManager.HandleCollision("Cider");
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
         gameManager.HandleCollision(other.gameObject.name);
     }
 

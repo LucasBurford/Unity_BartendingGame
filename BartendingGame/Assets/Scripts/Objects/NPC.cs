@@ -17,7 +17,8 @@ public class NPC : MonoBehaviour
     // Move speed
     public float moveSpeed;
 
-    public float TESTY;
+    // How long the agent has been walking on a path
+    public float pathLength;
 
     // Start is called before the first frame update
     private void Start()
@@ -49,6 +50,13 @@ public class NPC : MonoBehaviour
             // Then destroy - decrement numberOfAgents active so more can spawn
             npcManager.numberOfAgentsActive--;
             Destroy(gameObject);
+        }
+
+        pathLength += 0.01f;
+
+        if (pathLength >= 5)
+        {
+            SetNewDestination();
         }
     }
 

@@ -41,6 +41,10 @@ public class GameManager : MonoBehaviour
     // Reference to all ingredients collected text
     public TMP_Text allCollectedText;
     private bool hasDisplayed;
+
+    // Reference to pick up ingredient text
+    public TMP_Text pickUpIngredientText;
+
     #endregion
 
     #region Image fields
@@ -580,7 +584,9 @@ public class GameManager : MonoBehaviour
 
         pintCompletionSlider.value = 0;
 
+        hasDisplayed = false;
         shakerCollected = false;
+        allIngredientsCollected = false;
         canPullPint = false;
         orderUp = false;
 
@@ -652,38 +658,56 @@ public class GameManager : MonoBehaviour
         {
             if (collision == "Rum" && rumCollected == 0)
             {
-                // Add rum to inventory
-                Ingredient rum = FindObjectOfType<Ingredient>();
-                rum.ingredientName = "Rum";
-                rumCollected++;
+                DisplayPickUpIngredient("Rum");
 
-                inventory.Add(rum);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    // Add rum to inventory
+                    Ingredient rum = FindObjectOfType<Ingredient>();
+                    rum.ingredientName = "Rum";
+                    rumCollected++;
 
-                DisplayIngredientCollected("Rum");
+                    inventory.Add(rum);
+
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Rum");
+                }
             }
 
             if (collision == "SugarSyrup" && dSugarSyrupCollected == 0)
             {
-                // Add Sugar syrup to inventory
-                Ingredient sugarSyrup = FindObjectOfType<Ingredient>();
-                sugarSyrup.ingredientName = "Sugar Syrup";
-                dSugarSyrupCollected++;
+                DisplayPickUpIngredient("Sugar Syrup");
 
-                inventory.Add(sugarSyrup);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    // Add Sugar syrup to inventory
+                    Ingredient sugarSyrup = FindObjectOfType<Ingredient>();
+                    sugarSyrup.ingredientName = "Sugar Syrup";
+                    dSugarSyrupCollected++;
 
-                DisplayIngredientCollected("Sugar Syrup");
+                    inventory.Add(sugarSyrup);
+
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Sugar Syrup");
+                }
             }
 
             if (collision == "LimeJuice" && dLimeJuiceCollected == 0)
             {
-                // Add lime juice to inventory
-                Ingredient limeJuice = FindObjectOfType<Ingredient>();
-                limeJuice.ingredientName = "Lime Juice";
-                dLimeJuiceCollected++;
+                DisplayPickUpIngredient("Lime Juice");
 
-                inventory.Add(limeJuice);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    // Add lime juice to inventory
+                    Ingredient limeJuice = FindObjectOfType<Ingredient>();
+                    limeJuice.ingredientName = "Lime Juice";
+                    dLimeJuiceCollected++;
 
-                DisplayIngredientCollected("Lime Juice");
+                    inventory.Add(limeJuice);
+
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Lime Juice");
+                }
             }
         }
 
@@ -692,20 +716,38 @@ public class GameManager : MonoBehaviour
         {
             if (collision == "Tequila" && tequilaCollected == 0)
             {
-                tequilaCollected++;
-                DisplayIngredientCollected("Tequila");
+                DisplayPickUpIngredient("Tequila");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    tequilaCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Tequila");
+                }
             }
 
             if (collision == "LimeJuice" && mLimeJuiceCollected == 0)
             {
-                mLimeJuiceCollected++;
-                DisplayIngredientCollected("Lime Juice");
+                DisplayPickUpIngredient("Lime Juice");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    mLimeJuiceCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Lime Juice");
+                }
             }
 
             if (collision == "Cointreau" && cointreauCollected == 0)
             {
-                cointreauCollected++;
-                DisplayIngredientCollected("Cointreau");
+                DisplayPickUpIngredient("Cointreau");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    cointreauCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Cointreau");
+                }
             }
         }
 
@@ -714,20 +756,38 @@ public class GameManager : MonoBehaviour
         {
             if (collision == "Whiskey" && whiskeyCollected == 0)
             {
-                whiskeyCollected++;
-                DisplayIngredientCollected("Whiskey");
+                DisplayPickUpIngredient("Whiskey");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    whiskeyCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Whiskey");
+                }
             }
 
             if (collision == "SugarSyrup" && ofSugarSyrupCollected == 0)
             {
-                ofSugarSyrupCollected++;
-                DisplayIngredientCollected("Sugar Syrup");
+                DisplayPickUpIngredient("Sugar Syrup");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    ofSugarSyrupCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Sugar Syrup");
+                }
             }
 
             if (collision == "Bitters" && bittersCollected == 0)
             {
-                bittersCollected++;
-                DisplayIngredientCollected("Bitters");
+                DisplayPickUpIngredient("Bitters");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    bittersCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Bitters");
+                }
             }
         }
 
@@ -736,32 +796,67 @@ public class GameManager : MonoBehaviour
         {
             if (collision == "Vodka" && vodkaCollected == 0)
             {
-                vodkaCollected++;
-                DisplayIngredientCollected("Vodka");
+                DisplayPickUpIngredient("Vodka");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    vodkaCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Vodka");
+                }
             }
 
             if (collision == "Passoa" && passoaCollected == 0)
             {
-                passoaCollected++;
-                DisplayIngredientCollected("Passoa");
+                DisplayPickUpIngredient("Passoa");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    passoaCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Pasoa");
+                }
             }
 
             if (collision == "PassionfruitPuree" && passionfruitPureeCollected == 0)
             {
-                passionfruitPureeCollected++;
-                DisplayIngredientCollected("Passionfruit puree");
+                DisplayPickUpIngredient("Passionfruit puree");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    passionfruitPureeCollected++;
+                    RemovePickUpIngredientText();
+                    DisplayIngredientCollected("Passionfruit puree");
+                }
             }
         }
         #endregion
 
         if (collision == "CocktailShaker")
         {
-            if (allIngredientsCollected)
+            if (allIngredientsCollected && !shakerCollected)
             {
-                shakerCollected = true;
+                DisplayPickUpIngredient("Shaker");
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    RemovePickUpIngredientText();
+                    shakerCollected = true;
+                }
             }
         }
 
+    }
+
+    private void RemovePickUpIngredientText()
+    {
+        pickUpIngredientText.gameObject.SetActive(false);
+    }
+
+    private void DisplayPickUpIngredient(string name)
+    {
+        pickUpIngredientText.gameObject.SetActive(true);
+        pickUpIngredientText.text = "E Collect " + name;
     }
 
     private void DisplayIngredientCollected(string name)
