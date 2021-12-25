@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        print(other.gameObject.name);
         if (other.gameObject.name == "LagerTap")
         {
             gameManager.HandleCollision("Lager");
