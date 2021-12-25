@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class GameManager : MonoBehaviour
 
     //  Shaking audio
     public AudioSource cocktailShaking;
+
+    // Reference to post processing
+    public PostProcessVolume volume;
     #endregion
 
     #region Text fields
@@ -105,6 +109,15 @@ public class GameManager : MonoBehaviour
     #region Gameplay and spec
     [Header("Floats and ints")]
     [Header("Gameplay and spec")]
+
+    #region Difficulty
+    public Difficulty difficulty;
+    public enum Difficulty
+    {
+        normal,
+        hard
+    }
+    #endregion
 
     #region Floats and ints
 
@@ -244,6 +257,7 @@ public class GameManager : MonoBehaviour
         ingredientGOList = new List<GameObject>();
         ingredientLocList = new List<GameObject>();
 
+        difficulty = Difficulty.normal;
         drinkToBeCreated = Drinks.none;
 
         // Add ingredient game objects and locations to lists
@@ -325,10 +339,44 @@ public class GameManager : MonoBehaviour
             extraIngLocationsAdded = true;
             AddExtraIngredientLocationsToList();
         }
+        CheckDifficulty();
+        CheckTimeLeft();
+    }
 
-        if (TEST)
+    #region Gameplay methods
+    private void CheckDifficulty()
+    {
+        var hueShift = volume.profile.GetSetting<ColorGrading>().hueShift;
+
+        if (difficulty == Difficulty.hard)
         {
-            ShakeCocktail();
+            bool up = true;
+            bool down;
+            
+            if (up)
+            {
+                hueShift.Override(hueShift.value += 0.5f);
+                
+                if (hueShift.value == 180)
+                {
+                    up = false;
+                    down = true;
+                }
+            }
+            else
+            {
+                hueShift.Override(hueShift.value -= 0.5f);
+
+                if (hueShift.value == -180)
+                {
+                    up = true;
+                    down = false;
+                }
+            }
+        }
+        else
+        {
+            hueShift.value = 0;
         }
     }
 
@@ -635,6 +683,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(WaitToGetNewOrder());
     }
+    #endregion
 
     #region Coroutines
 
@@ -670,6 +719,15 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Misc Methods
+    private void CheckTimeLeft()
+    {
+        if (timerSlider.value < 10)
+        {
+            var x = volume.profile.GetSetting<ChromaticAberration>();
+            x.intensity.Override(Mathf.PingPong(Time.time, 1));
+        }
+    }
+
     private void AddIngredientToGOUI()
     {
 
