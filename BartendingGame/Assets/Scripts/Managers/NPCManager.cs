@@ -20,6 +20,8 @@ public class NPCManager : MonoBehaviour
         spawnPointList = new List<GameObject>();
         prefabs = Resources.LoadAll<GameObject>("Prefabs");
         PopulateSpawnPointList();
+
+        SpawnNPC();
     }
 
     // Update is called once per frame

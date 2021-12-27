@@ -279,6 +279,9 @@ public class GameManager : MonoBehaviour
 
         // Add drinks to list
         AddDrinks();
+
+        // Get a starting order
+        CreateOrder();
     }
 
     // Update is called once per frame
