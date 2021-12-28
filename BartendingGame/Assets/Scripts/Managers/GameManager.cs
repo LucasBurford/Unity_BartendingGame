@@ -351,6 +351,14 @@ public class GameManager : MonoBehaviour
         }
 
         if (drinksCompleted == 10 && !extraIngLocationsAdded)
+        {
+           // AddExtraIngredientLocationsToList();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 
         CheckDifficulty();
         CheckTimeLeft();
@@ -401,6 +409,11 @@ public class GameManager : MonoBehaviour
             // Set orderUp to true
             orderUp = true;
 
+            // Reset chromatic aberration effect
+            var x = volume.profile.GetSetting<ChromaticAberration>();
+            x.intensity.Override(0);
+
+            // Randonmise ingredient locations
             RandomiseLocations();
 
             // Play new order ding
@@ -693,6 +706,30 @@ public class GameManager : MonoBehaviour
 
         ResetAllIngredients();
         RemoveIngredientImages();
+
+        switch (drinkToBeCreated)
+        {
+            case Drinks.lager:
+                {
+                    FindObjectOfType<AudioManager>().Play("LagerPouring");
+                }
+                break;
+
+            case Drinks.cider:
+                {
+                    FindObjectOfType<AudioManager>().Play("CiderPouring");
+                }
+                break;
+
+            case Drinks.daiquiri:
+            case Drinks.oldFashioned:
+            case Drinks.passionfruitMartini:
+            case Drinks.margarita:
+                {
+                    FindObjectOfType<AudioManager>().Play("CocktailShake");
+                }
+                break;
+        }
 
         StartCoroutine(WaitToGetNewOrder());
     }
