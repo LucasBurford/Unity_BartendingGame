@@ -56,7 +56,7 @@ public class NPC : MonoBehaviour
 
         if (pathLength >= 5)
         {
-            SetNewDestination();
+           // SetNewDestination();
         }
     }
 

@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (canMove)
         {
-            controller.Move(move * moveSpeed);
+            controller.SimpleMove(move * moveSpeed);
 
             // rb.velocity = new Vector3(horizontalInput, rb.velocity.y, verticalInput) * moveSpeed;
         }

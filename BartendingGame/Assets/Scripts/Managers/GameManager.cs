@@ -170,6 +170,9 @@ public class GameManager : MonoBehaviour
     // Bool to determine if extra ingredient locations have been added
     [SerializeField]
     private bool extraIngLocationsAdded;
+
+    // Bool to determine if player is at an ingredient
+    public bool isOverIngredient;
     #endregion
 
     #region Difficulty
@@ -360,6 +363,11 @@ public class GameManager : MonoBehaviour
             Application.Quit();
         }
 
+        if (!isOverIngredient)
+        {
+            createDrinkText.text = "";
+        }
+
         CheckDifficulty();
         CheckTimeLeft();
     }
@@ -464,25 +472,25 @@ public class GameManager : MonoBehaviour
                     }
                     break;
 
-                // Case 5: Pint of Lager
-                case 5:
-                    {
-                        newOrder.orderName = "Pint of Lager";
-                        newOrder.orderImage = lagerImage;
-                        drinkToBeCreated = Drinks.lager;
-                        canPullPint = true;
-                    }
-                    break;
+                //// Case 5: Pint of Lager
+                //case 5:
+                //    {
+                //        newOrder.orderName = "Pint of Lager";
+                //        newOrder.orderImage = lagerImage;
+                //        drinkToBeCreated = Drinks.lager;
+                //        canPullPint = true;
+                //    }
+                //    break;
 
-                // Case 6: Pint of Cider
-                case 6:
-                    {
-                        newOrder.orderName = "Pint of Cider";
-                        newOrder.orderImage = ciderImage;
-                        drinkToBeCreated = Drinks.cider;
-                        canPullPint = true;
-                    }
-                    break;
+                //// Case 6: Pint of Cider
+                //case 6:
+                //    {
+                //        newOrder.orderName = "Pint of Cider";
+                //        newOrder.orderImage = ciderImage;
+                //        drinkToBeCreated = Drinks.cider;
+                //        canPullPint = true;
+                //    }
+                //    break;
             }
 
             // Add the new order to orderList
@@ -666,7 +674,7 @@ public class GameManager : MonoBehaviour
         }
         else if (shakeScore > 1)
         {
-            shakeScore -= shakeScoreReduce;
+            shakeScore -= shakeScoreReduce * Time.deltaTime;
         }
 
         if (shakeScore >= 45)
@@ -780,6 +788,8 @@ public class GameManager : MonoBehaviour
 
     public void HandleCollision(string collision)
     {
+        isOverIngredient = true;
+
         #region Taps
         // Check if player is at correct drink station
         // If drink to be created is a lager and player is at lager tap
@@ -1047,7 +1057,7 @@ public class GameManager : MonoBehaviour
 
     public void LeftCollider()
     {
-        createDrinkText.text = "";
+        isOverIngredient = false;
     }
 
     private void AddIngredientsToList()
